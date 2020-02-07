@@ -1,35 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import db from '../config/firebase'
+import db from '../config/firestore'
 import { deepStrictEqual } from 'assert'
+import { fetchPasswords } from '../store/actions'
+import { useDispatch, useSelector } from 'react-redux'
 
 export function useFetcher() {
-  const [data, setData] = useState([])
+  const data  = useSelector(state => state.passwords)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const currentUserId = 'test123'
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    let query = db.collection('Passwords').where('userId', '==', currentUserId)
-    query.get()
-         .then( (result) => {
-           let passwords = []
-           result.forEach(doc => {
-             let info = doc.data()
-             let item = {
-               id: doc.id,
-               info
-             }
-             passwords.push(item)
-             
-            })
-            setData(passwords)
-           
-         })
-         .catch(err => {
-           setError(err)
-         })
-
-  }, [data])
+    dispatch(fetchPasswords(currentUserId))
+  }, [])
 
   
   
