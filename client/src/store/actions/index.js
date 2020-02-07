@@ -1,4 +1,4 @@
-import db from "../../config/firebase";
+import db from "../../config/firestore";
 
 // define types
 export const RECEIVE_PASSWORDS = "RECEIVE_PASSWORDS";
@@ -10,6 +10,7 @@ export const getPasswords = () => {
   return dispatch => {
     let passArr = [];
     db.collection("passwords")
+      .where("user", "==", "5X16z6042w6hw2J9J3Ol")
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
@@ -20,14 +21,22 @@ export const getPasswords = () => {
   };
 };
 
-export const searchPasswords = (passwords, keyword) => {
+export const searchPasswords = keyword => {
+  return (dispatch, getState) => {
+    const { passwords } = getState();
+    let filtered = passwords.filter(
+      password =>
+        password.login.toLowerCase().startsWith(keyword.toLowerCase()) ||
+        password.url.toLowerCase().startsWith(keyword.toLowerCase())
+    );
+    dispatch(receiveSearchPasswords(filtered));
+  };
+};
+
+export const receiveSearchPasswords = passwords => {
   return {
     type: RECEIVE_SEARCH_PASSWORDS,
-    results: passwords.filter(
-      password =>
-        password.username.startsWith(keyword) ||
-        password.url.startsWith(keyword)
-    )
+    results: passwords
   };
 };
 

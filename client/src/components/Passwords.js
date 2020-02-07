@@ -13,19 +13,19 @@ export default function Passwords(props) {
   let { passwords } = props;
   return (
     <div>
-      <Table striped bordered hover>
+      <Table data-testid="passwords-list" striped bordered hover>
         <thead>
           <tr>
             <th>URL</th>
-            <th>Username</th>
+            <th>Username/Email</th>
             <th>Password</th>
             <th>CreatedAt</th>
             <th>UpdatedAt</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody data-testid="password-table">
           {passwords.map(record => (
-            <tr key={Math.random()}>
+            <tr role="listitem" key={Math.random()}>
               <td>{record.url}</td>
               <td>{record.username}</td>
               <td>{record.password}</td>

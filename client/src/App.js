@@ -1,23 +1,18 @@
-import React from 'react';
-import { Provider } from 'react-redux'
+import React from "react";
+import { Provider } from "react-redux";
+import "./config/firebase";
+import store from "./store/";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-import store from './store/'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from 'react-router-dom'
-
-import Home from './views/Home'
+import Home from "./views/Home";
 
 function App() {
   return (
-    <Provider store={ store }>
+    <Provider store={store}>
       <Router>
-        <div className='content'>
+        <div className="content">
           <Switch>
-            <Route exact path='/'>
+            <Route exact path="/">
               <Home />
             </Route>
           </Switch>
