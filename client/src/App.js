@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import Home from './views/Home';
 import Register from './views/Register';
+import Dashboard from './views/Dashboard';
 import './App.css';
 
 function App() {
@@ -11,6 +12,9 @@ function App() {
     <Provider store={store}>
       <Router>
         <Switch>
+          <Route exact path='/'>
+            <Home />
+          </Route>
           <Route path='/register'>
             <Register />
           </Route>
@@ -18,10 +22,7 @@ function App() {
             <Home />
           </Route>
           <Route path='/dashboard'>
-            <Home />
-          </Route>
-          <Route exact path='/'>
-            <Home />
+            <Dashboard />
           </Route>
         </Switch>
       </Router>
