@@ -6,6 +6,17 @@ import App from './App';
 import { Provider } from 'react-redux'
 import store from './store'
 
+
+jest.mock('./config/firebase', () => {
+  return {}
+})
+
+jest.mock('./config/firestore', () => {
+  const firestoreMock = require('./helpers/firestoreMock');
+  return firestoreMock;
+})
+
+
 test('App should render', () => {
   const app = render(
     <Provider store={store}>
@@ -14,5 +25,6 @@ test('App should render', () => {
       </Router>
     </Provider>
   )
+
   expect(app.queryByTestId("home-page")).toBeInTheDocument()
 });

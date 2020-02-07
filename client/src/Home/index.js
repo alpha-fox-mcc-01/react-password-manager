@@ -17,7 +17,7 @@ export function Home() {
   let list = data
   if (result.length > 0) list = result
   return (
-    <div>
+    <div data-testid="home-page">
       <PasswordContainer></PasswordContainer>
       <SearchPassword searchByKeyword= {searchByKeyword}></SearchPassword>
       <ListPassword data={ list }></ListPassword>

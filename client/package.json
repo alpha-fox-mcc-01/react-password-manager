@@ -41,5 +41,11 @@
   },
   "devDependencies": {
     "firestore-jest-mock": "^0.2.1"
+  },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/src/index.js",
+      "<rootDir>/src/serviceWorker.js"
+    ]
   }
 }
