@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import db from "../../config/firestore";
 import useFetcher from '../../hooks/useFetcher'
-
+import { useDispatch } from 'react-redux'
+import { deletePassword } from '../../store/actions'
 export function ListPasswords(props) {
   const { data } = props
+  const dispatch = useDispatch()
   const handleDelete = id => {
-    db.collection("Passwords")
-      .doc(`${id}`)
-      .delete();
+    dispatch(deletePassword(id))
   };
 
   return (

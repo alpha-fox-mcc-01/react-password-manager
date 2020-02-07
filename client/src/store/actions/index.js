@@ -1,7 +1,9 @@
 import db from "../../config/firestore";
 
+
 export const SET_PASSWORDS = "SET_PASSWORDS";
 export const SET_NEWPASSWORD = "SET_NEWPASSWORD";
+export const SET_DELETEDPASSWORD = "SET_DELETEDPASSWORD"
 
 export const setPasswords = passwords => {
   return {
@@ -16,6 +18,13 @@ export const setNewPassword = password => {
     password
   };
 };
+
+export const setDeletedPassword = passwordId => {
+  return {
+    type: SET_DELETEDPASSWORD,
+    passwordId
+  }
+}
 
 export const addPassword = payload => {
   return dispatch => {
@@ -38,6 +47,22 @@ export const addPassword = payload => {
       });
   };
 };
+
+export const deletePassword = id=> {
+  return dispatch => {
+    db.collection("Passwords")
+      .doc(`${id}`)
+      .delete()
+      .then( doc => {
+        dispatch(setDeletedPassword(id))
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+
+}
 
 export const fetchPasswords = currentUserId => {
   console.log("masuk action");

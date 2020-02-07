@@ -10,7 +10,7 @@ function App() {
    
     <React.StrictMode>
       <div className="App">
-        <Home></Home>
+        <Home data-testid="home-page"></Home>
       </div>
     </React.StrictMode>
    
