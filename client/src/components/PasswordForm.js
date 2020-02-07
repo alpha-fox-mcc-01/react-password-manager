@@ -54,7 +54,7 @@ export default function PasswordForm() {
   };
   return (
     <>
-      <Button variant="secondary" onClick={handleShow}>
+      <Button variant="secondary" id='add-new-btn' onClick={handleShow}>
         Add New
       </Button>
 
@@ -98,7 +98,7 @@ export default function PasswordForm() {
                 onChange={ handlePasswordChange }
               />
               <br />
-              <p style={{ lineHeight: '60%'}}><b><u>Password Strength:&nbsp;</u>
+              <p style={{ lineHeight: '60%'}}><b><u>Password Strength</u>:&nbsp;
                 { (upperCase || lowerCase || special || number || length) && <span className='errors'>Not Recommended</span>}
                 {!(upperCase || lowerCase || special || number || length) && <span className='proper'>Ok</span>}
               </b></p>

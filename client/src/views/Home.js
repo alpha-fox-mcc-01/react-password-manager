@@ -1,28 +1,34 @@
 import React, { useState } from "react";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import PasswordForm from '../components/PasswordForm'
 import Passwords from "../components/Passwords";
 
-import { searchPasswords } from '../store/actions/'
+import { searchPasswords, getPasswords } from '../store/actions/'
 export default function Home() {
+  let passwords = [] // Ini yang bakal di-display
+  let allPasswords = useSelector(state => state.passwords)
+  let searchResults = useSelector(state => state.searchResultPasswords)
   let dispatch = useDispatch()
-  const [keyword, setKeyword] = useState('')
+  const [isSearching, setIsSearching] = useState(false)
 
   const handleSearchChange = (event) => {
-    setKeyword(event.target.value)
+    // setKeyword(event.target.value)
+    if (event.target.value.length ) setIsSearching(true)
+    else setIsSearching(false)
+    dispatch(searchPasswords(allPasswords, event.target.value))
   }
 
-  const handleSearchSubmit = (event) => {
-    event.preventDefault()
-    dispatch(searchPasswords(keyword))
-    console.log('ok')
+  if (isSearching) {
+    passwords = searchResults
+  } else {
+    passwords = allPasswords
   }
   return (
     <div>
       <div className='row'>
         <div className='col-md-4'>
-          <form onSubmit={ handleSearchSubmit }>
+          <form>
             <div className="input-group mb-3">
               <input
                 type="text"
@@ -32,19 +38,14 @@ export default function Home() {
                 aria-describedby="basic-addon2"
                 onChange={ handleSearchChange }
               />
-              <div className="input-group-append">
-                <button className="btn btn-outline-secondary" type="submit">
-                  Find
-                </button>
-              </div>
             </div>
           </form>
         </div>
-        <div className='col-md-2'>
+        <div className='col-md-8'>
           <PasswordForm />
         </div>
       </div>
-      <Passwords />
+      <Passwords passwords={ passwords }/>
     </div>
   );
 }
