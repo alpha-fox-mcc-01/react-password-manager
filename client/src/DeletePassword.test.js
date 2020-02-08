@@ -15,15 +15,17 @@ jest.mock("./config/firestore", () => {
   return firestoreMock;
 });
 
-jest.mock("sweetalert2", () => {
-  return {
-    Swal: {
-      fire : () => {
-        {}
-      }
-    }
-  }
-})
+// jest.mock("sweetalert2", () => {
+//   return {
+//     Swal: {
+//       fire : () => {
+//         Sweetalert : {
+//           return new Promise((resolve, reject
+//         })
+//       }
+//     }
+//   }
+// })
 
 test("Delete password should return id", async () => {
   const app = render(
@@ -36,7 +38,8 @@ test("Delete password should return id", async () => {
 
   app.debug()
   await waitForElement(() => app.getAllByRole("listitem"));
-  fireEvent.click(app.getAllByRole('button'))
+  fireEvent.click(app.queryByTestId("delete-button-123"))
+
   
   
 

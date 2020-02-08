@@ -30,11 +30,6 @@ export function Home() {
     <div data-testid="home-page">
       <PasswordContainer></PasswordContainer>
       <SearchPassword searchByKeyword= {searchByKeyword}></SearchPassword>
-      <button role="button" data-testid="delete-button"
-        className="px-2 py-2 bg-red-400 text-white rounded"
-      >
-        Delete
-      </button>
       <ListPasswords data={ list }></ListPasswords>
     </div>
   );

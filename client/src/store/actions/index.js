@@ -53,7 +53,7 @@ export const deletePassword = id=> {
     db.collection("Passwords")
       .doc(`${id}`)
       .delete()
-      .then( doc => {
+      .then( _ => {
         dispatch(setDeletedPassword(id))
       })
       .catch(err => {
