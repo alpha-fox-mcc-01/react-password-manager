@@ -1,0 +1,20 @@
+.profile-section {
+  background-color: #8d222b;
+  padding: 0 1em;
+}
+
+.nav-search {
+  background-color: #8d222b;
+  color: white;
+  border-color: darkred;
+}
+
+.nav-search::placeholder {
+  color: white;
+}
+
+.stickynav {
+  position: fixed;
+  top: 0;
+  z-index: 99;
+}
