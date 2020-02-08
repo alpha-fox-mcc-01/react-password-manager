@@ -15,6 +15,7 @@ jest.mock("./config/firestore", () => {
   return firestoreMock;
 });
 
+
 test("Fetch password  should display list of passwords", async () => {
   const app = render(
     <Provider store={store}>

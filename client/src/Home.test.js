@@ -26,4 +26,5 @@ test("Home should display Form Password, Searchbar, ListPassword", () => {
     expect (app.queryByTestId("form-password")).toBeInTheDocument()
     expect (app.queryByTestId("list-passwords")).toBeInTheDocument()
     expect (app.queryByTestId("searchbar")).toBeInTheDocument()
+    
 })  
