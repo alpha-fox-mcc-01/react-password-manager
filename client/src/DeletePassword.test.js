@@ -1,5 +1,5 @@
 import React from "react";
-import { render, waitForElement } from "@testing-library/react";
+import { render, waitForElement, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
@@ -15,7 +15,17 @@ jest.mock("./config/firestore", () => {
   return firestoreMock;
 });
 
-test("Delete password should return id", () => {
+jest.mock("sweetalert2", () => {
+  return {
+    Swal: {
+      fire : () => {
+        {}
+      }
+    }
+  }
+})
+
+test("Delete password should return id", async () => {
   const app = render(
     <Provider store={store}>
       <Router>
@@ -24,5 +34,11 @@ test("Delete password should return id", () => {
     </Provider>
   );
 
+  app.debug()
+  await waitForElement(() => app.getAllByRole("listitem"));
+  fireEvent.click(app.getAllByRole('button'))
   
+  
+
+
 });

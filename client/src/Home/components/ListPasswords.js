@@ -53,7 +53,7 @@ export function ListPasswords(props) {
                 <span className="text-blue-500 block mb-2">
                   password: {password.password}{" "}
                 </span>
-                <button data-testid="delete-button"
+                <button role="button" data-testid="delete-button"
                   onClick={() => handleDelete(password.id)}
                   className="px-2 py-2 bg-red-400 text-white rounded"
                 >

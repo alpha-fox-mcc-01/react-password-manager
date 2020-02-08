@@ -49,7 +49,7 @@ test("Add Password works well", async () => {
   fireEvent.submit(app.getByTestId("input-form"))
 
   await waitForElement(() => app.getAllByRole("listitem"))
-  expect(app.queryByTestId("list-passwords").children.length).toBe(2)
+  expect(app.queryByTestId("list-passwords").children.length).toBe(4)
   expect(app.queryByTestId("list-passwords")).toHaveTextContent(username.target.value);
 
 });
