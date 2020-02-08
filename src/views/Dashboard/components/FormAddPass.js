@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 // hooks
@@ -8,7 +8,7 @@ import usePassCheck from '../../../hooks/usePassChecker'
 // components
 import './FormAddPass.css'
 import PasswordStrIndicator from './PasswordStrIndicator'
-import Loading from '../../../components/Loading'
+// import Loading from '../../../components/Loading'
 
 // actions
 import { postPassword } from '../../../store/actions'

@@ -15,7 +15,7 @@ export default function PasswordCard(props) {
   }
 
   return (
-    <div className='card d-flex flex-row p-3 flex-grow-1 col-md-6'>
+    <div className='card d-flex flex-row p-3 flex-grow-1 col-lg-6'>
       <div className='mr-3 d-flex align-items-center flex-column'>
         <img
           src={

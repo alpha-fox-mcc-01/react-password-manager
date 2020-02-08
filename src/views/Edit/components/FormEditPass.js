@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useParams, useHistory } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
+import { reqDeletePassword } from '../../../store/actions'
+
 import PasswordStrIndicator from '../../Dashboard/components/PasswordStrIndicator'
 import Loading from '../../../components/Loading'
 
@@ -12,7 +14,9 @@ import useDataBinding from '../../../hooks/useDataBinding'
 import usePasswordCheck from '../../../hooks/usePassChecker'
 
 export default function FormEditPass() {
+  const dispatch = useDispatch()
   const history = useHistory()
+
   const [isFetching, setIsFetching] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
@@ -36,6 +40,7 @@ export default function FormEditPass() {
       .get()
       .then((querySnapshot) => {
         const data = querySnapshot.data()
+        console.log(querySnapshot)
         setLabel(data.name)
         setUrl(data.url)
         setNotes(data.notes)
@@ -76,6 +81,7 @@ export default function FormEditPass() {
       .doc(id)
       .update(editedPayload)
       .then(() => {
+        resetForm()
         history.push('/dashboard')
       })
       .catch(console.log)
@@ -87,13 +93,8 @@ export default function FormEditPass() {
 
   function handleDelete() {
     setIsFetching(true)
-    db.collection('passwords')
-      .doc(id)
-      .delete()
-      .then(() => {
-        history.push('/dashboard')
-      })
-      .catch(console.log)
+    dispatch(reqDeletePassword(id))
+    history.push('/dashboard')
   }
 
   usePasswordCheck(password)

@@ -66,6 +66,25 @@ export const setMyPasswords = (passwords) => {
     payload: passwords,
   }
 }
+
+// Asyncs
+
+export const reqGetOnePassword = (passId) => {
+  return (dispatch) => {}
+}
+
+export const reqDeletePassword = (passId) => {
+  return (dispatch) => {
+    db.collection('passwords')
+      .doc(passId)
+      .delete()
+      .then(() => {
+        dispatch(requestPasswords())
+      })
+      .catch(console.log)
+  }
+}
+
 export const requestPasswords = (owner) => {
   const myPasswords = []
   return (dispatch) => {

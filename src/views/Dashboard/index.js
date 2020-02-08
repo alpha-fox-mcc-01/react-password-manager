@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import NavigationBar from '../../components/NavigationBar'
-import Notification from '../../components/Notification'
+// import Notification from '../../components/Notification'
 import FormAddPass from './components/FormAddPass'
 import AddPasswordFloatingButton from './components/AddPasswordFAB'
 import PasswordVault from './components/PasswordVault'
