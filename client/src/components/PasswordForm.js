@@ -68,11 +68,17 @@ export default function PasswordForm() {
     <>
       <Button
         data-testid="password-form-modal"
-        variant="secondary"
+        variant="warning"
         id="add-new-btn"
         onClick={handleShow}
       >
-        Add New
+        <img
+          src={require("../images/add-icon.png")}
+          height="30"
+          width="30"
+          id="create-btn-image"
+        />
+        <span id="create-btn-text">Create New</span>
       </Button>
 
       <Modal show={show} onHide={handleClose}>

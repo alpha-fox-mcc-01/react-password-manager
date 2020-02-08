@@ -11,14 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 } */
+#root {
+  font-family: "Nunito", sans-serif;
+}
 
 .content {
-  width: 100rem;
-
-  position:fixed; /*it can be fixed too*/
-  left:0; right:0;
-  top:2.5rem; bottom:0;
-  margin:auto;
+  position: fixed; /*it can be fixed too*/
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 }
 
 .errors {
@@ -28,4 +31,103 @@ code {
 
 .proper {
   color: rgb(76, 170, 76);
+}
+
+.sidebar {
+  /* background-color: #20639b; */
+  background-color: #1338be;
+  height: 100vh;
+}
+
+#add-new-btn {
+  border-radius: 25px;
+  height: 2.75rem;
+  margin-top: 2rem;
+  width: 10rem;
+}
+
+#create-btn-text {
+  margin-left: 0.4rem;
+}
+
+#create-btn-image {
+  margin-bottom: 0.2rem;
+}
+
+#sidebar-content {
+  margin-top: 2rem;
+  margin-left: 2rem;
+}
+
+#options-list {
+  margin-top: 2rem;
+  margin-left: 0.5rem;
+  color: white;
+}
+
+#options-list h6 {
+  color: white;
+}
+
+.options-list-image {
+  margin-right: 0.5rem;
+}
+
+.home-header {
+  margin-top: 1rem;
+  border-bottom: solid lightgray;
+  border-width: 1px;
+}
+
+.home-header h4 {
+  margin-top: 0.3rem;
+  margin-left: 0.7rem;
+}
+
+#search-icon-div {
+  border-top: solid lightgray;
+  border-right: solid lightgray;
+  border-left: solid lightgray;
+  border-bottom: solid lightgray;
+  border-width: 1px;
+}
+
+#search-icon-img {
+  margin-top: 0.2rem;
+}
+
+#nav-logo-img {
+  margin-top: 0.1rem;
+}
+
+#user-info-div {
+  float: right;
+  margin-top: 0.5rem;
+  margin-right: 1rem;
+}
+
+#user-icon {
+  margin-right: 0.6rem;
+}
+
+#display-options {
+  border-bottom: solid lightgray;
+  border-width: 1px;
+  height: 3.5rem;
+  background-color: rgb(240, 240, 240);
+  /* justify-content: center; */
+  align-items: center;
+}
+
+#passwords-list {
+  margin-top: 1rem;
+}
+
+#order-dropdown {
+  margin-left: 0.7rem;
+}
+
+#records-dropdown {
+  margin-left: auto;
+  margin-right: 1.5rem;
 }

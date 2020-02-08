@@ -12,7 +12,7 @@ export default function Passwords(props) {
 
   let { passwords } = props;
   return (
-    <div>
+    <div id="passwords-list">
       <Table data-testid="passwords-list" striped bordered hover>
         <thead>
           <tr>
