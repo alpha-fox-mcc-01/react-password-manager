@@ -7,14 +7,22 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 jest.mock("./config/firebase", () => {
-    return {};
-  });
-  
-  jest.mock("./config/firestore", () => {
-    const firestoreMock = require("./helpers/firestoreMock");
-    return firestoreMock;
-  });
+  return {};
+});
 
- test("Delete password should return id", () => {
-     
- }) 
+jest.mock("./config/firestore", () => {
+  const firestoreMock = require("./helpers/firestoreMock");
+  return firestoreMock;
+});
+
+test("Delete password should return id", () => {
+  const app = render(
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>
+  );
+
+  
+});
