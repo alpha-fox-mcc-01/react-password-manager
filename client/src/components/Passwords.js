@@ -27,7 +27,7 @@ export default function Passwords(props) {
           {passwords.map(record => (
             <tr role="listitem" key={Math.random()}>
               <td>{record.url}</td>
-              <td>{record.username}</td>
+              <td>{record.login}</td>
               <td>{record.password}</td>
               <td>{String(new Date(record.createdAt.seconds))}</td>
               <td>{String(new Date(record.updatedAt.seconds))}</td>

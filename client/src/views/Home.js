@@ -12,6 +12,7 @@ export default function Home() {
   let allPasswords = useSelector(state => state.passwords);
   const [passwords, setPasswords] = useState(allPasswords);
 
+  const [keyword, setKeyword] = useState("");
   useEffect(() => {
     if (isSearching) {
       setPasswords(searchResults);
@@ -32,7 +33,7 @@ export default function Home() {
     <div>
       <div className="row">
         <div className="col-md-4">
-          <form data-testid="password-search-bar">
+          <form>
             <div className="input-group mb-3">
               <input
                 type="text"
@@ -40,7 +41,9 @@ export default function Home() {
                 placeholder="Search here..."
                 aria-label="Search here..."
                 aria-describedby="basic-addon2"
+                value={keyword}
                 onChange={handleSearchChange}
+                data-testid="search-bar-input"
               />
             </div>
           </form>

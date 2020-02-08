@@ -89,6 +89,7 @@ export default function PasswordForm() {
                 id="exampleInputURL1"
                 aria-describedby="URLHelp"
                 placeholder="Enter URL"
+                data-testid="url-input"
                 onChange={handleUrlChange}
               />
             </div>
@@ -99,6 +100,7 @@ export default function PasswordForm() {
                 className="form-control"
                 id="exampleInputLogin1"
                 placeholder="Email/Username"
+                data-testid="login-input"
                 onChange={handleLoginChange}
               />
             </div>
@@ -109,6 +111,7 @@ export default function PasswordForm() {
                 className="form-control"
                 id="exampleInputPassword1"
                 placeholder="Password"
+                data-testid="password-input"
                 onChange={handlePasswordChange}
               />
               <small id="passwordHelp" className="form-text text-muted">
@@ -156,7 +159,11 @@ export default function PasswordForm() {
               )}
             </div>
             <hr />
-            <button type="submit" className="btn btn-primary">
+            <button
+              data-testid="add-submit-btn"
+              type="submit"
+              className="btn btn-primary"
+            >
               Create
             </button>
           </form>
