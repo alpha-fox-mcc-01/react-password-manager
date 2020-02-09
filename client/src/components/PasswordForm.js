@@ -77,6 +77,7 @@ export default function PasswordForm() {
           height="30"
           width="30"
           id="create-btn-image"
+          alt="create-btn"
         />
         <span id="create-btn-text">Create New</span>
       </Button>

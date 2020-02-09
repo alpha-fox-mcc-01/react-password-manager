@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DropdownButton, Dropdown } from "react-bootstrap";
 
-import PasswordForm from "../components/PasswordForm";
 import Passwords from "../components/Passwords";
 import Sidebar from "../components/Sidebar";
 
-import { searchPasswords, getPasswords } from "../store/actions/";
+import { searchPasswords } from "../store/actions/";
 export default function Home() {
   let searchResults = useSelector(state => state.searchResultPasswords);
   const [isSearching, setIsSearching] = useState(false);
@@ -47,6 +46,7 @@ export default function Home() {
                   width="40"
                   height="40"
                   id="nav-logo-img"
+                  alt="logo-icon"
                 />
               </div>
               <div className="col-md-11">
@@ -64,6 +64,7 @@ export default function Home() {
                     height="30"
                     width="30"
                     id="search-icon-img"
+                    alt="search-icon"
                   />
                 </div>
                 <input
@@ -87,6 +88,7 @@ export default function Home() {
                   width="30"
                   height="30"
                   id="user-icon"
+                  alt="user-profile"
                 />
                 <b>johndoe@mail.com</b>
               </h6>

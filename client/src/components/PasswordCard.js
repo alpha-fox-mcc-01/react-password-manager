@@ -32,7 +32,7 @@ export default function PasswordCard(props) {
     setUrl(record.url);
     setLogin(record.login);
     setPassword(record.password);
-  }, []);
+  }, [record.login, record.password, record.url]);
   const handleUrlChange = event => {
     setUrl(event.target.value);
   };
@@ -80,6 +80,12 @@ export default function PasswordCard(props) {
     handleConfirmClose();
   };
 
+  const handleCancel = () => {
+    setUrl(record.url);
+    setLogin(record.login);
+    setPassword(record.password);
+    handleClose();
+  };
   const optionsPopover = (
     <Popover id="popover-basic">
       <Popover.Title as="h3">Options</Popover.Title>
@@ -115,7 +121,7 @@ export default function PasswordCard(props) {
       <Popover.Title as="h3">Share Options</Popover.Title>
       <Popover.Content>
         <strong>
-          <a href="#">Share to...</a>
+          <a href="/">Share to...</a>
         </strong>
       </Popover.Content>
     </Popover>
@@ -133,6 +139,7 @@ export default function PasswordCard(props) {
         height="20"
         width="30"
         id="share-icon"
+        alt="share-icon"
       />
     </OverlayTrigger>
   );
@@ -276,7 +283,7 @@ export default function PasswordCard(props) {
               data-testid="cancel-submit-btn"
               type="button"
               className="btn btn-secondary"
-              onClick={handleClose}
+              onClick={handleCancel}
             >
               Cancel
             </button>

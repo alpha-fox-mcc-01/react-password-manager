@@ -106,7 +106,8 @@ export const requestEditPassword = (id, payload) => {
         {
           url: payload.url,
           login: payload.login,
-          password: payload.password
+          password: payload.password,
+          updatedAt: new Date()
         },
         { merge: true }
       )

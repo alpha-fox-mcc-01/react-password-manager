@@ -5,7 +5,12 @@ import PasswordForm from "./PasswordForm";
 export default function Sidebar() {
   return (
     <div id="sidebar-content">
-      <img src={require("../images/menu-icon.png")} height="30" width="30" />
+      <img
+        src={require("../images/menu-icon.png")}
+        height="30"
+        width="30"
+        alt="menu-icon"
+      />
       <br />
       <PasswordForm aria-label="password-form-modal" />
       <div id="options-list">
@@ -16,6 +21,7 @@ export default function Sidebar() {
               height="30"
               width="30"
               className="options-list-image"
+              alt="lock-icon"
             />
             My Vault
           </h6>
