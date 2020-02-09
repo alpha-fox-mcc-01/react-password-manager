@@ -9,6 +9,7 @@ export function Home() {
   const [list, setList] = useState([])
 
   const searchByKeyword = keyword => {
+    console.log(keyword)
     const searchResult = data.filter(password => {
       return password.url.startsWith(`${keyword}`);
     });
@@ -16,11 +17,11 @@ export function Home() {
   };
 
   useEffect(() => {
-    console.log('use effect kepanggil')
     if (result.length > 0) {
       setList(result)
-    } 
-    setList(data)
+    } else {
+      setList(data)
+    }
   }, [result, data])
   
   

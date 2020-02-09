@@ -4,6 +4,7 @@ import db from "../../config/firestore";
 export const SET_PASSWORDS = "SET_PASSWORDS";
 export const SET_NEWPASSWORD = "SET_NEWPASSWORD";
 export const SET_DELETEDPASSWORD = "SET_DELETEDPASSWORD"
+export const SET_EDITEDPASSWORD = "SET_EDITEDPASSWORD"
 
 export const setPasswords = passwords => {
   return {
@@ -18,6 +19,14 @@ export const setNewPassword = password => {
     password
   };
 };
+
+export const setEditedPassword = payload => {
+  
+  return {
+    type: SET_EDITEDPASSWORD,
+    payload
+  }
+}
 
 export const setDeletedPassword = passwordId => {
   return {
@@ -60,15 +69,34 @@ export const deletePassword = id=> {
         console.log(err);
       });
   }
-
-
 }
 
+
+export const editPasswords = payload => {
+  return dispatch => {
+    db.collection("Passwords")
+      .doc(`${payload.id}`)
+      .set({
+        url: payload.url,
+        username: payload.username,
+        password: payload.password,
+        updatedAt: new Date(),
+        userId: "test123"
+      })
+      .then(_ => {
+        dispatch(setEditedPassword(payload))
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+}
 export const fetchPasswords = currentUserId => {
-  console.log("masuk action");
+
   return dispatch => {
     let query = db.collection("Passwords").where("userId", "==", currentUserId);
-    query.get().then(result => {
+    query.get()
+    .then(result => {
       let passwords = [];
       result.forEach(doc => {
         let info = doc.data();
@@ -78,8 +106,10 @@ export const fetchPasswords = currentUserId => {
         };
         passwords.push(item);
       });
-      console.log(passwords, 'ini passwords')
+
       dispatch(setPasswords(passwords));
     });
+ 
+   
   };
 };

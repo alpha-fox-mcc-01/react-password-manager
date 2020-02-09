@@ -1,41 +1,36 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import db from "../../config/firestore";
 import useFetcher from '../../hooks/useFetcher'
 import { useDispatch } from 'react-redux'
 import { deletePassword } from '../../store/actions'
 import Swal from 'sweetalert2'
+import { Modal, Button } from 'react-bootstrap'
+import EditForm from './EditForm'
 export function ListPasswords(props) {
   const { data } = props
+  const [editInfo, setEditInfo] = useState({})
+  const [editPassword, setEditPassword] = useState('')
+  const [editUsername, setEditUsername] = useState('')
+  const [passwordId, setPasswordId] = useState('')
+ 
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const dispatch = useDispatch()
   const handleDelete = id => {
     dispatch(deletePassword(id))
-    // console.log(Swal.fire())
-    // Swal.fire({
-    //   title: 'Are you sure?',
-    //   text: 'You will not be able to recover this',
-    //   icon: 'warning',
-    //   showCancelButton: true,
-    //   confirmButtonText: 'Yes, delete it!',
-    //   cancelButtonText: 'No, keep it'
-    // }).then((result) => {
-    //   if (result.value) {
-        
-    //     Swal.fire(
-    //       'Deleted!',
-    //       'Your password has been deleted.',
-    //       'success'
-    //     )
-    //   } else if (result.dismiss === Swal.DismissReason.cancel) {
-    //     Swal.fire(
-    //       'Cancelled',
-    //       'Your password is safe :)',
-    //       'error'
-    //     )
-    //   }
-    // })
     
   };
 
+  const toggleModal = (url, id, password, username) => {
+    let info = {
+      url, id, password, username
+    }
+    setEditInfo(info)
+    setShow(true)
+  }
   return (
     <div data-testid="list-passwords" className="flex flex-wrap">
       {data.length > 0 &&
@@ -52,7 +47,8 @@ export function ListPasswords(props) {
                 <span className="text-blue-500 block mb-2">
                   username: {password.username}{" "}
                 </span>
-                <span className="text-blue-500 block mb-2">
+                <span
+                className="text-blue-500 block mb-2">
                   password: {password.password}{" "}
                 </span>
                 <button role="button" data-testid={"delete-button-" + password.id}
@@ -61,9 +57,18 @@ export function ListPasswords(props) {
                 >
                   Delete
                 </button>
-                <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-                  Edit
+                <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={() => toggleModal(password.url, password.id, password.password, password.username)} >
+                  Edit {password.url}
                 </button>
+                <Modal show={show} onHide={handleClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Edit Password </Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <EditForm info={ editInfo } >
+                    </EditForm>
+                  </Modal.Body>
+                </Modal>
               </div>
             </div>
           );

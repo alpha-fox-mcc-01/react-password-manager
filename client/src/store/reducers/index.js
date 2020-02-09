@@ -1,4 +1,4 @@
-import { SET_PASSWORDS, SET_NEWPASSWORD, SET_DELETEDPASSWORD } from "../actions";
+import { SET_PASSWORDS, SET_NEWPASSWORD, SET_DELETEDPASSWORD, SET_EDITEDPASSWORD } from "../actions";
 
 const initialState = {
   passwords: []
@@ -13,6 +13,9 @@ function passwordReducer(state = initialState, action) {
     case SET_DELETEDPASSWORD: 
       let newPasswords = state.passwords.filter( password => { return password.id !== action.passwordId })
       return {...state, passwords: newPasswords }
+    case SET_EDITEDPASSWORD:
+      let updatedPasswords =   state.passwords.filter( password => { return password.id !== action.payload.id })
+      return { ...state, passwords: [...updatedPasswords, action.payload]}
     default:
       return state;
   }

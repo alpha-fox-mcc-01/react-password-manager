@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { addPassword } from '../../store/actions'
+import { editPasswords } from '../../store/actions'
 import { useDispatch } from "react-redux";
-export function PasswordContainer() {
+import Swal from 'sweetalert2'
+export function EditForm(props) {
   const [url, setUrl] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -17,12 +18,15 @@ export function PasswordContainer() {
     let payload = {
       url,
       username,
-      password
+      password,
+      id: props.info.id
     };
-    dispatch(addPassword(payload));
+    dispatch(editPasswords(payload));
     setUrl("");
     setUsername("");
     setPassword("");
+    Swal.fire('Yay', 'Your password info has been edited', 'success')
+    
   };
 
 
@@ -76,39 +80,39 @@ export function PasswordContainer() {
 
   return (
     <>
-      <div data-testid="form-password"
+      <div data-testid="edit-password"
         style={styles}
-        className="w-1/2 rounded px-6 pt-6 pb-8 mb-4 flex flex-col my-2"
+        className="w-full rounded flex flex-col"
       >
-        <div style={styles} className="md:w-1/2 -mx-3 md:flex mb-6">
-          <div className="md:w-full px-3 mb-6 md:mb-0">
+        <div style={styles} className="">
+          <div className="">
             <form data-testid="input-form" onSubmit={handleFormSubmit}>
               <label>URL</label>
               <input data-testid="inputUrl"
                 value={url}
                 onChange={handleUrlChange}
-                className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
+                className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded"
                 id="grid-first-name"
                 type="text"
-                placeholder="e.g. Google.com, Facebook.com"
+                placeholder={props.info.url}
               />
               <label>Username</label>
               <input data-testid="inputUsername"
                 value={username}
                 onChange={handleUsernameChange}
-                className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
+                className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded"
                 id="grid-first-name"
                 type="text"
-                placeholder="Type in your handle"
+                placeholder={props.info.username}
               />
               <label>Password</label>
               <input data-testid="inputPassword"
                 value={password}
                 onChange={handlePasswordChange}
-                className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
+                className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded"
                 id="grid-first-name"
                 type="text"
-                placeholder="Type in your password"
+                placeholder={props.info.password}
               />
               {
                 !isUppercase && (
@@ -133,7 +137,7 @@ export function PasswordContainer() {
               }
               {
                 !hasSpecial && (
-                  <p className="text-red text-xs italic">
+                <p className="text-red text-xs italic">
                   Password has to contain 1 special character
                 </p>
                 )
@@ -145,9 +149,7 @@ export function PasswordContainer() {
                 </p>
                 )
               }
-              {
-                isLowercase && isUppercase && length && hasNumber && hasSpecial && <button data-testid="submit-button" type="Submit">Save</button>
-              }
+            <button data-testid="submit-button" type="Submit">Save</button>
             </form>
           </div>
         </div>
@@ -156,4 +158,4 @@ export function PasswordContainer() {
   );
 }
 
-export default PasswordContainer;
+export default EditForm;
