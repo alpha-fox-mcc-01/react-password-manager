@@ -42,7 +42,7 @@ export function PasswordContainer() {
 
 
   useEffect(() => {
-    if (password.length > 5) {
+    if (password.length >= 5) {
       setLength(true)
     } else {
       setLength(false)
