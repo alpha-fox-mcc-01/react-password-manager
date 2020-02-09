@@ -46,8 +46,6 @@ test("Edit password should return password info with updated value", async () =>
 
     await waitForElement(() => app.getAllByTestId("list-passwords"));
     fireEvent.click(app.queryByTestId("to-edit123"))
-    expect(app.queryByText(/URL/)).toBeInTheDocument();
-    expect(app.queryByText(/Username/)).toBeInTheDocument();
     // fireEvent.change(app.queryAllByTestId("editUsername-123"), username)
     // fireEvent.change(app.getAllByTestId("editPassword"), password)
     // fireEvent.change(app.getAllByTestId("editUrl"), url)

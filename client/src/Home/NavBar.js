@@ -17,7 +17,7 @@ export function NavBar() {
     const header = {
         marginTop: "0.5rem"
     }
-    const { data, error } = useFetcher();
+    const { data } = useFetcher();
     const [result, setResult] = useState([]);
     const [list, setList] = useState([])
   

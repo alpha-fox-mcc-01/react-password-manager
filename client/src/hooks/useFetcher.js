@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import db from '../config/firestore'
-import { deepStrictEqual } from 'assert'
 import { fetchPasswords } from '../store/actions'
 import { useDispatch, useSelector } from 'react-redux'
 

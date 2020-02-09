@@ -1,17 +1,14 @@
 import React, {useState} from "react";
-import { Accordion, Card, Button, Modal } from "react-bootstrap";
+import { Accordion, Card, Modal } from "react-bootstrap";
 import { useDispatch } from 'react-redux'
 import { deletePassword } from '../../store/actions'
-import Swal from 'sweetalert2'
 import EditForm from './EditForm'
 import CustomToggle from './CustomToggle'
 export function ListAccordion(props) {
 
   const { data } = props
   const [editInfo, setEditInfo] = useState({})
-  const [editPassword, setEditPassword] = useState('')
-  const [editUsername, setEditUsername] = useState('')
-  const [passwordId, setPasswordId] = useState('')
+
 
   const [show, setShow] = useState(false);
 

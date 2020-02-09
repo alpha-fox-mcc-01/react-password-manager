@@ -9,10 +9,7 @@ export function Home() {
    justifyContent: "center",
    alignItems: "center"
  }
- const size = {
-   width: "50px",
-   height: "50px"
- }
+ 
 
   return (
     <div data-testid="home-page">
