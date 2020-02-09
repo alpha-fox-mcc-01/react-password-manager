@@ -39,14 +39,14 @@ export function ListAccordion(props) {
         data.map(password => {
           return (
           <>
-           <Card>
-            <Card.Header>
+           <Card key={password.id}>
+            <Card.Header key={password.id}>
               <CustomToggle eventKey={password.id}>
                 {password.url}
               </CustomToggle>
             </Card.Header>
             <Accordion.Collapse eventKey={password.id}>
-              <Card.Body>  <span className="text-blue-500 block mb-2">
+              <Card.Body key={password.id}>  <span className="text-blue-500 block mb-2">
                   username: {password.username}{" "}
                 </span>
                 <span

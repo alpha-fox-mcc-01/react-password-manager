@@ -6,6 +6,7 @@ import ListPasswords from "./components/ListPasswords";
 import useFetcher from "../hooks/useFetcher";
 import './NavBar.css'
 import ListAccordion from "./components/ListAccordion"
+import PasswordGenerator from "./components/PasswordGenerator"
 export function NavBar() {
     const [key, setKey] = useState('home');
     const styles = {
@@ -15,7 +16,7 @@ export function NavBar() {
         backgroundColor: "#ffe9a2"
     }
     const header = {
-        marginTop: "2rem"
+        marginTop: "0.5rem"
     }
     const { data, error } = useFetcher();
     const [result, setResult] = useState([]);
@@ -46,6 +47,9 @@ export function NavBar() {
             <Tab style={listStyle} eventKey="profile" title="Your passwords">
             <SearchPassword searchByKeyword= {searchByKeyword}></SearchPassword>
             <ListAccordion data={ list }></ListAccordion>
+            </Tab>
+            <Tab style={listStyle} eventKey="other" title="Generate a password">
+              <PasswordGenerator></PasswordGenerator>
             </Tab>
         </Tabs>
         </div>

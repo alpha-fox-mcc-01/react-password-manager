@@ -78,10 +78,10 @@ export function PasswordContainer() {
     <>
       <div data-testid="form-password"
         style={styles}
-        className="w-full rounded px-6 pt-6 pb-8 mb-4 flex flex-col my-2"
+        className="w-full rounded-sm px-6 pt-6 pb-8 mb-4 flex flex-col my-2"
       >
-        <div style={styles} className="md:w-1/2 -mx-3 md:flex mb-6">
-          <div className="md:w-full">
+        <div style={styles} className="md:w-1/2 -mx-3 md:flex mb-6 rounded-sm">
+          <div className="md:w-full rounded-sm">
             <form data-testid="input-form" onSubmit={handleFormSubmit}>
               <label>URL</label>
               <input data-testid="inputUrl"
