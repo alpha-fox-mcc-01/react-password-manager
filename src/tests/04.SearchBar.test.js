@@ -78,4 +78,5 @@ test('user should be redirected when clicking on the search result', () => {
     .then(() => {
       expect(app.queryByTestId('inputLabel')).toHaveValue('TEST 01')
     })
+    .catch(console.log)
 })

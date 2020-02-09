@@ -14,6 +14,16 @@ function get() {
             notes: 'for testing purpose only',
             owner: 'tester',
             url: 'testing.com',
+            createdAt: {
+              toDate: () => {
+                return ''
+              },
+            },
+            updatedAt: {
+              toDate: () => {
+                return ''
+              },
+            },
           }
         },
       },
@@ -30,6 +40,16 @@ function get() {
             notes: 'for testing purpose only',
             owner: 'tester',
             url: 'testing.com',
+            createdAt: {
+              toDate: () => {
+                return ''
+              },
+            },
+            updatedAt: {
+              toDate: () => {
+                return ''
+              },
+            },
           }
         },
       },
@@ -70,6 +90,16 @@ function doc(passwordId) {
               notes: 'for testing purpose only',
               owner: 'tester',
               url: 'testing.com',
+              createdAt: {
+                toDate: () => {
+                  return ''
+                },
+              },
+              updatedAt: {
+                toDate: () => {
+                  return ''
+                },
+              },
             }
           },
         })
