@@ -43,9 +43,9 @@ export default function Home() {
             <div className="row">
               <div className="col-md-1">
                 <img
-                  src={require("../images/boxes.png")}
+                  src={require("../images/logo.jpg")}
                   width="40"
-                  height="30"
+                  height="40"
                   id="nav-logo-img"
                 />
               </div>
@@ -106,8 +106,7 @@ export default function Home() {
               id="records-dropdown"
               title="All Records"
             >
-              <Dropdown.Item href="#/action-1">Ascending</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Descending</Dropdown.Item>
+              <Dropdown.Item href="#/action-1">Last Updated</Dropdown.Item>
             </DropdownButton>
           </div>
         </div>

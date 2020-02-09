@@ -94,7 +94,7 @@ test("Home page working properly", async () => {
 
   // Fetching passwords test ===============================
   await waitForElement(() => app.getAllByRole("listitem"));
-  expect(app.queryByTestId("password-table").children.length).toBe(2);
+  expect(app.queryByTestId("passwords-list").children.length).toBe(2);
 
   // Add new password record test ==================================
   fireEvent.click(app.getByText(/Create New/)); // Keluarin formnya yang berupa modal
@@ -130,9 +130,8 @@ test("Home page working properly", async () => {
 
   // seharusnya yang baru ke-append
   await waitForElement(() => app.getAllByRole("listitem"));
-  expect(app.queryByTestId("password-table").children.length).toBe(3);
+  expect(app.queryByTestId("passwords-list").children.length).toBe(3);
   expect(app.queryByText("leroy12345")).toBeInTheDocument();
-  expect(app.queryByText("asdidD3$w")).toBeInTheDocument(); // Harusnya password leroy gak ditampilin
 
   // Search feature test =======================================
   const keyword = {
@@ -141,7 +140,7 @@ test("Home page working properly", async () => {
     }
   };
   fireEvent.change(app.queryByTestId("search-bar-input"), keyword); // set keyword/query
-  expect(app.queryByText(/rahasia/)).toBeInTheDocument(); // Harusnya password jimmy ditampilin
-  expect(app.queryByText(/qwerty12345/)).not.toBeInTheDocument(); // Harusnya password agung gak ditampilin
-  expect(app.queryByText("asdidD3$w")).not.toBeInTheDocument(); // Harusnya password leroy gak ditampilin
+  expect(app.queryByText(/jimmy/)).toBeInTheDocument(); // Harusnya password jimmy ditampilin
+  expect(app.queryByText(/agung/)).not.toBeInTheDocument(); // Harusnya password agung gak ditampilin
+  expect(app.queryByText("leroy")).not.toBeInTheDocument(); // Harusnya password leroy gak ditampilin
 });

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { Popover, OverlayTrigger, Modal, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { Button, Modal } from "react-bootstrap";
+import { requestDeletePassword, requestEditPassword } from "../store/actions/";
 
-import { requestAddPassword } from "../store/actions/";
-
-export default function PasswordForm() {
+export default function PasswordCard(props) {
   let dispatch = useDispatch();
-  // Ini buat toggle modal
+  let { record } = props;
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -23,6 +22,17 @@ export default function PasswordForm() {
   const [number, setNumber] = useState(true);
   const [length, setLength] = useState(true);
 
+  // delete confirmation
+  const [showConfirm, setShowConfirm] = useState(false);
+
+  const handleConfirmClose = () => setShowConfirm(false);
+  const handleConfirmShow = () => setShowConfirm(true);
+
+  useEffect(() => {
+    setUrl(record.url);
+    setLogin(record.login);
+    setPassword(record.password);
+  }, []);
   const handleUrlChange = event => {
     setUrl(event.target.value);
   };
@@ -34,6 +44,7 @@ export default function PasswordForm() {
   const handlePasswordChange = event => {
     setPassword(event.target.value);
   };
+
   useEffect(() => {
     if (password.toLowerCase() !== password) {
       setUpperCase(false);
@@ -54,9 +65,8 @@ export default function PasswordForm() {
 
   const handleFormSubmit = event => {
     event.preventDefault();
-    // console.log('masuk')
     dispatch(
-      requestAddPassword({
+      requestEditPassword(record.id, {
         url,
         login,
         password
@@ -64,26 +74,111 @@ export default function PasswordForm() {
     );
     handleClose();
   };
+
+  const handleDelete = _ => {
+    dispatch(requestDeletePassword(record.id));
+    handleConfirmClose();
+  };
+
+  const optionsPopover = (
+    <Popover id="popover-basic">
+      <Popover.Title as="h3">Options</Popover.Title>
+      <Popover.Content>
+        <div onClick={handleConfirmShow}>
+          <strong id="delete-option">Delete</strong>
+        </div>
+      </Popover.Content>
+    </Popover>
+  );
+
+  const Options = () => (
+    <OverlayTrigger
+      rootClose={true}
+      trigger="click"
+      placement="right"
+      overlay={optionsPopover}
+    >
+      <img
+        src={require("../images/options-icon.png")}
+        height="30"
+        width="30"
+        alt="3 Dots Clipart"
+        id="options-icon"
+        onClick={() => setShowConfirm(false)}
+      />
+    </OverlayTrigger>
+  );
+
+  const sharePopover = (
+    <Popover id="popover-basic">
+      <Popover.Title as="h3">Share Options</Popover.Title>
+      <Popover.Content>
+        <strong>
+          <a href="#">Share to...</a>
+        </strong>
+      </Popover.Content>
+    </Popover>
+  );
+
+  const Share = () => (
+    <OverlayTrigger
+      rootClose={true}
+      trigger="click"
+      placement="right"
+      overlay={sharePopover}
+    >
+      <img
+        src={require("../images/people.png")}
+        height="20"
+        width="30"
+        id="share-icon"
+      />
+    </OverlayTrigger>
+  );
   return (
     <>
-      <Button
-        data-testid="password-form-modal"
-        variant="warning"
-        id="add-new-btn"
-        onClick={handleShow}
-      >
-        <img
-          src={require("../images/add-icon.png")}
-          height="30"
-          width="30"
-          id="create-btn-image"
-        />
-        <span id="create-btn-text">Create New</span>
-      </Button>
-
+      <div className="card password-card" role="listitem">
+        <div className="password-card-options">
+          <Share />
+          <Options />
+        </div>
+        <center>
+          <div onClick={handleShow}>
+            <img
+              src={"http://logo.clearbit.com/" + record.url}
+              // className="card-img-top"
+              alt="record-logo"
+              width="100"
+              height="100"
+            />
+            <div className="card-body">
+              <h5 className="card-title">{record.url}</h5>
+              <p className="card-text">{record.login}</p>
+            </div>
+          </div>
+        </center>
+      </div>
+      {/* Delete Modal */}
+      <Modal show={showConfirm} onHide={handleConfirmClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmation</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure? This record will be removed forever!
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={handleDelete}>
+            Confirm Delete
+          </Button>
+          <Button variant="primary" onClick={handleConfirmClose}>
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {/* Edit Modal */}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add New Password Record</Modal.Title>
+          <Modal.Title>View/Edit Password Record</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={handleFormSubmit}>
@@ -96,6 +191,7 @@ export default function PasswordForm() {
                 aria-describedby="URLHelp"
                 placeholder="Enter URL"
                 data-testid="url-input"
+                value={url}
                 onChange={handleUrlChange}
               />
             </div>
@@ -107,6 +203,7 @@ export default function PasswordForm() {
                 id="exampleInputLogin1"
                 placeholder="Email/Username"
                 data-testid="login-input"
+                value={login}
                 onChange={handleLoginChange}
               />
             </div>
@@ -118,6 +215,7 @@ export default function PasswordForm() {
                 id="exampleInputPassword1"
                 placeholder="Password"
                 data-testid="password-input"
+                value={password}
                 onChange={handlePasswordChange}
               />
               <small id="passwordHelp" className="form-text text-muted">
@@ -166,11 +264,19 @@ export default function PasswordForm() {
             </div>
             <hr />
             <button
-              data-testid="add-submit-btn"
+              data-testid="edit-submit-btn"
               type="submit"
               className="btn btn-warning"
             >
-              Create
+              Update
+            </button>
+            &nbsp;&nbsp;&nbsp;
+            <button
+              data-testid="cancel-submit-btn"
+              type="button"
+              className="btn btn-secondary"
+            >
+              Cancel
             </button>
           </form>
         </Modal.Body>

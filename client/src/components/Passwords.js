@@ -3,6 +3,7 @@ import { Table } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { getPasswords } from "../store/actions/";
 
+import PasswordCard from "./PasswordCard";
 export default function Passwords(props) {
   let dispatch = useDispatch();
 
@@ -12,8 +13,13 @@ export default function Passwords(props) {
 
   let { passwords } = props;
   return (
-    <div id="passwords-list">
-      <Table data-testid="passwords-list" striped bordered hover>
+    <div data-testid="passwords-list" id="passwords-list" className="row">
+      {passwords.map(record => (
+        <div className="col-md-3" key={Math.random()}>
+          <PasswordCard record={record} />
+        </div>
+      ))}
+      {/* <Table data-testid="passwords-list" striped bordered hover>
         <thead>
           <tr>
             <th>URL</th>
@@ -34,7 +40,7 @@ export default function Passwords(props) {
             </tr>
           ))}
         </tbody>
-      </Table>
+      </Table> */}
     </div>
   );
 }

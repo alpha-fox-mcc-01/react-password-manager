@@ -4,6 +4,8 @@ import db from "../../config/firestore";
 export const RECEIVE_PASSWORDS = "RECEIVE_PASSWORDS";
 export const ADD_PASSWORD = "ADD_PASSWORD";
 export const RECEIVE_SEARCH_PASSWORDS = "RECEIVE_SEARCH_PASSWORDS";
+export const DELETE_PASSWORD = "DELETE_PASSWORD";
+export const EDIT_PASSWORD = "EDIT_PASSWORD";
 
 // define creators
 export const getPasswords = () => {
@@ -72,5 +74,55 @@ export const addPassword = newPassword => {
   return {
     type: ADD_PASSWORD,
     newPassword
+  };
+};
+
+export const requestDeletePassword = id => {
+  return dispatch => {
+    db.collection("passwords")
+      .doc(id)
+      .delete()
+      .then(() => {
+        dispatch(deletePassword(id));
+      })
+      .catch(err => {
+        console.error("Error removing document:", err);
+      });
+  };
+};
+
+export const deletePassword = id => {
+  return {
+    type: DELETE_PASSWORD,
+    id
+  };
+};
+
+export const requestEditPassword = (id, payload) => {
+  return dispatch => {
+    db.collection("passwords")
+      .doc(id)
+      .set(
+        {
+          url: payload.url,
+          login: payload.login,
+          password: payload.password
+        },
+        { merge: true }
+      )
+      .then(() => {
+        dispatch(editPassword(id, payload));
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
+};
+
+export const editPassword = (id, payload) => {
+  return {
+    type: EDIT_PASSWORD,
+    id,
+    payload
   };
 };
