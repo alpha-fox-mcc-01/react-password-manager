@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent, waitForElement } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 
 import { Provider } from 'react-redux'
@@ -7,7 +7,6 @@ import store from '../store'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 import App from '../App'
-import { act } from 'react-dom/test-utils'
 
 jest.mock('../configs/firebase', () => {
   return {}

@@ -15,12 +15,15 @@ export default function SearchResult(props) {
 
   return (
     <div
+      data-testid={'resultLink' + id}
       className='result-row px-3 py-2'
       onClick={() => {
         handleResultClick()
       }}
     >
-      <strong className='mr-1'>{name}</strong>
+      <strong data-testid={'resultName' + id} className='mr-1'>
+        {name}
+      </strong>
       <span>
         ({type}: {value})
       </span>
