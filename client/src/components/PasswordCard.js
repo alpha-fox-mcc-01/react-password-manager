@@ -105,6 +105,7 @@ export default function PasswordCard(props) {
         alt="3 Dots Clipart"
         id="options-icon"
         onClick={() => setShowConfirm(false)}
+        data-testid="options-trigger"
       />
     </OverlayTrigger>
   );
@@ -159,7 +160,7 @@ export default function PasswordCard(props) {
         </center>
       </div>
       {/* Delete Modal */}
-      <Modal show={showConfirm} onHide={handleConfirmClose}>
+      <Modal show={showConfirm} onHide={handleConfirmClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>Confirmation</Modal.Title>
         </Modal.Header>
@@ -275,6 +276,7 @@ export default function PasswordCard(props) {
               data-testid="cancel-submit-btn"
               type="button"
               className="btn btn-secondary"
+              onClick={handleClose}
             >
               Cancel
             </button>

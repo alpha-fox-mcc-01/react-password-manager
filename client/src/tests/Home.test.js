@@ -82,6 +82,11 @@ jest.mock("../config/firestore.js", () => {
               return new Promise((resolve, reject) => {
                 resolve();
               });
+            },
+            delete: _ => {
+              return new Promise((resolve, reject) => {
+                resolve();
+              });
             }
           };
         }
@@ -291,6 +296,13 @@ test("Home page working properly", async () => {
   expect(app.queryByText("agungcool")).toBeInTheDocument(); // Harusnya namanya udah ganti
 
   // Delete test ===============================================
+  fireEvent.click(app.getAllByTestId("options-trigger")[0]); // Harusnya keluarin form edit beserta passwordnya
+  expect(app.queryByText("Delete")).toBeInTheDocument();
+  fireEvent.click(app.getByText(/Delete/));
+  expect(app.queryByText(/Confirmation/)).toBeInTheDocument(); // Seharusnya muncul konfirmasi
+  fireEvent.click(app.queryByText(/Confirm Delete/));
+  await waitForElement(() => app.getAllByRole("listitem"));
+  expect(app.queryByText("agungcool")).not.toBeInTheDocument(); // record Agung seharusnya udah hilang
 
   // Search feature test =======================================
   const keyword = {
