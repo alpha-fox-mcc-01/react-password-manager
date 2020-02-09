@@ -78,16 +78,16 @@ export function PasswordContainer() {
     <>
       <div data-testid="form-password"
         style={styles}
-        className="w-1/2 rounded px-6 pt-6 pb-8 mb-4 flex flex-col my-2"
+        className="w-full rounded px-6 pt-6 pb-8 mb-4 flex flex-col my-2"
       >
         <div style={styles} className="md:w-1/2 -mx-3 md:flex mb-6">
-          <div className="md:w-full px-3 mb-6 md:mb-0">
+          <div className="md:w-full">
             <form data-testid="input-form" onSubmit={handleFormSubmit}>
               <label>URL</label>
               <input data-testid="inputUrl"
                 value={url}
                 onChange={handleUrlChange}
-                className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
+                className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded"
                 id="grid-first-name"
                 type="text"
                 placeholder="e.g. Google.com, Facebook.com"
@@ -96,7 +96,7 @@ export function PasswordContainer() {
               <input data-testid="inputUsername"
                 value={username}
                 onChange={handleUsernameChange}
-                className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
+                className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded"
                 id="grid-first-name"
                 type="text"
                 placeholder="Type in your handle"
@@ -105,7 +105,7 @@ export function PasswordContainer() {
               <input data-testid="inputPassword"
                 value={password}
                 onChange={handlePasswordChange}
-                className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
+                className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded"
                 id="grid-first-name"
                 type="text"
                 placeholder="Type in your password"

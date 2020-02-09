@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
+import { Accordion, Card, Button, Modal } from "react-bootstrap";
 import { useDispatch } from 'react-redux'
 import { deletePassword } from '../../store/actions'
 import Swal from 'sweetalert2'
-import { Modal, Button } from 'react-bootstrap'
 import EditForm from './EditForm'
-export function ListPasswords(props) {
+
+export function ListAccordion(props) {
+
   const { data } = props
   const [editInfo, setEditInfo] = useState({})
   const [editPassword, setEditPassword] = useState('')
   const [editUsername, setEditUsername] = useState('')
   const [passwordId, setPasswordId] = useState('')
- 
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -21,7 +23,6 @@ export function ListPasswords(props) {
     dispatch(deletePassword(id))
     
   };
-
   const toggleModal = (url, id, password, username) => {
     let info = {
       url, id, password, username
@@ -29,20 +30,23 @@ export function ListPasswords(props) {
     setEditInfo(info)
     setShow(true)
   }
+
+
+
   return (
-    <div data-testid="list-passwords" className="flex flex-wrap">
-      {data.length > 0 &&
+    <Accordion>
+        {data.length > 0 &&
         data.map(password => {
           return (
-            <div role="listitem" key={password.id} className="sm:w-1/4 p-2">
-              <div className="bg-white px-6 py-8 rounded-lg shadow-lg text-center">
-                <div className="mb-3">
-                  <img className="w-auto mx-auto rounded-full" src="" alt="" />
-                </div>
-                <h2 className="text-xl font-medium text-gray-700">
-                  url: {password.url}{" "}
-                </h2>
-                <span className="text-blue-500 block mb-2">
+          <>
+           <Card>
+            <Card.Header>
+              <Accordion.Toggle as={Button} variant="link" eventKey={password.id}>
+                {password.url}
+              </Accordion.Toggle>
+            </Card.Header>
+            <Accordion.Collapse eventKey={password.id}>
+              <Card.Body>  <span className="text-blue-500 block mb-2">
                   username: {password.username}{" "}
                 </span>
                 <span
@@ -66,13 +70,13 @@ export function ListPasswords(props) {
                     <EditForm info={ editInfo } >
                     </EditForm>
                   </Modal.Body>
-                </Modal>
-              </div>
-            </div>
-          );
-        })}
-    </div>
+                </Modal></Card.Body>
+            </Accordion.Collapse>
+          </Card>
+          </>
+          )})}
+    </Accordion>
   );
 }
 
-export default ListPasswords;
+export default ListAccordion;
