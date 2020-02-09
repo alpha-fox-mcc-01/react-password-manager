@@ -75,6 +75,15 @@ jest.mock("../config/firestore.js", () => {
               }
             });
           });
+        },
+        doc: id => {
+          return {
+            set: object => {
+              return new Promise((resolve, reject) => {
+                resolve();
+              });
+            }
+          };
         }
       };
     }
@@ -97,6 +106,7 @@ test("Home page working properly", async () => {
   expect(app.queryByTestId("passwords-list").children.length).toBe(2);
 
   // Add new password record test ==================================
+
   fireEvent.click(app.getByText(/Create New/)); // Keluarin formnya yang berupa modal
   expect(app.queryByText(/New Password/)).toBeInTheDocument(); // Check buat form modal header
   expect(app.queryAllByText(/URL/i)[0]).toBeInTheDocument(); // Check buat field url
@@ -117,6 +127,139 @@ test("Home page working properly", async () => {
     }
   };
 
+  // Password strength test dulu ===================================
+  const noneFulfilled = {
+    target: {
+      value: ""
+    }
+  };
+  fireEvent.change(app.queryByTestId("password-input"), noneFulfilled); // semuanya error
+  expect(
+    app.queryByText(/should have at least one upper-case/)
+  ).toBeInTheDocument();
+  expect(
+    app.queryByText(/should have at least one lower-case/)
+  ).toBeInTheDocument();
+  expect(
+    app.queryByText(/should be longer than 5 characters/)
+  ).toBeInTheDocument();
+  expect(
+    app.queryByText(/should have at least one number/)
+  ).toBeInTheDocument();
+  expect(
+    app.queryByText(/should have at least one special character/)
+  ).toBeInTheDocument();
+
+  const lowerCase = {
+    target: {
+      value: "ubunt"
+    }
+  };
+  fireEvent.change(app.queryByTestId("password-input"), lowerCase); // lowercase gak error
+  expect(
+    app.queryByText(/should have at least one lower-case/)
+  ).not.toBeInTheDocument();
+  expect(
+    app.queryByText(/should have at least one upper-case/)
+  ).toBeInTheDocument();
+  expect(
+    app.queryByText(/should be longer than 5 characters/)
+  ).toBeInTheDocument();
+  expect(
+    app.queryByText(/should have at least one number/)
+  ).toBeInTheDocument();
+  expect(
+    app.queryByText(/should have at least one special character/)
+  ).toBeInTheDocument();
+
+  const upperCase = {
+    target: {
+      value: "Ubunt"
+    }
+  };
+  fireEvent.change(app.queryByTestId("password-input"), upperCase); // uppercase gak error
+  expect(
+    app.queryByText(/should have at least one upper-case/)
+  ).not.toBeInTheDocument();
+  expect(
+    app.queryByText(/should have at least one lower-case/)
+  ).not.toBeInTheDocument();
+  expect(
+    app.queryByText(/should be longer than 5 characters/)
+  ).toBeInTheDocument();
+  expect(
+    app.queryByText(/should have at least one number/)
+  ).toBeInTheDocument();
+  expect(
+    app.queryByText(/should have at least one special character/)
+  ).toBeInTheDocument();
+
+  const length = {
+    target: {
+      value: "Ubuntu"
+    }
+  };
+  fireEvent.change(app.queryByTestId("password-input"), length); // length gak error
+  expect(
+    app.queryByText(/should have at least one upper-case/)
+  ).not.toBeInTheDocument();
+  expect(
+    app.queryByText(/should have at least one lower-case/)
+  ).not.toBeInTheDocument();
+  expect(
+    app.queryByText(/should be longer than 5 characters/)
+  ).not.toBeInTheDocument();
+  expect(
+    app.queryByText(/should have at least one number/)
+  ).toBeInTheDocument();
+  expect(
+    app.queryByText(/should have at least one special character/)
+  ).toBeInTheDocument();
+
+  const number = {
+    target: {
+      value: "Ubuntu2"
+    }
+  };
+  fireEvent.change(app.queryByTestId("password-input"), number); // number gak error
+  expect(
+    app.queryByText(/should have at least one upper-case/)
+  ).not.toBeInTheDocument();
+  expect(
+    app.queryByText(/should have at least one lower-case/)
+  ).not.toBeInTheDocument();
+  expect(
+    app.queryByText(/should be longer than 5 characters/)
+  ).not.toBeInTheDocument();
+  expect(
+    app.queryByText(/should have at least one number/)
+  ).not.toBeInTheDocument();
+  expect(
+    app.queryByText(/should have at least one special character/)
+  ).toBeInTheDocument();
+
+  const symbol = {
+    target: {
+      value: "Ubuntu#2"
+    }
+  };
+  fireEvent.change(app.queryByTestId("password-input"), symbol); // symbol gak error, status ok
+  expect(
+    app.queryByText(/should have at least one upper-case/)
+  ).not.toBeInTheDocument();
+  expect(
+    app.queryByText(/should have at least one lower-case/)
+  ).not.toBeInTheDocument();
+  expect(
+    app.queryByText(/should be longer than 5 characters/)
+  ).not.toBeInTheDocument();
+  expect(
+    app.queryByText(/should have at least one number/)
+  ).not.toBeInTheDocument();
+  expect(
+    app.queryByText(/should have at least one special character/)
+  ).not.toBeInTheDocument();
+  expect(app.queryByText(/ok/i)).toBeInTheDocument();
   const password = {
     target: {
       value: "asdidD3$w"
@@ -132,6 +275,22 @@ test("Home page working properly", async () => {
   await waitForElement(() => app.getAllByRole("listitem"));
   expect(app.queryByTestId("passwords-list").children.length).toBe(3);
   expect(app.queryByText("leroy12345")).toBeInTheDocument();
+
+  // Edit test =================================================
+  fireEvent.click(app.getAllByTestId("dummy-password-card")[0]); // Harusnya keluarin form edit beserta passwordnya
+  expect(app.queryByText(/Edit/)).toBeInTheDocument();
+  expect(app.queryByText(/Update/)).toBeInTheDocument();
+  expect(app.queryByText(/Password Strength/)).toBeInTheDocument();
+  expect(app.queryByText(/URL/)).toBeInTheDocument();
+  expect(app.queryByText(/Login/)).toBeInTheDocument();
+  expect(app.queryByText("Password")).toBeInTheDocument();
+  login.target.value = "agungcool";
+  fireEvent.change(app.queryByTestId("edit-login-input"), login);
+  fireEvent.click(app.getByTestId("edit-submit-btn"));
+  await waitForElement(() => app.getAllByRole("listitem"));
+  expect(app.queryByText("agungcool")).toBeInTheDocument(); // Harusnya namanya udah ganti
+
+  // Delete test ===============================================
 
   // Search feature test =======================================
   const keyword = {

@@ -143,7 +143,7 @@ export default function PasswordCard(props) {
           <Options />
         </div>
         <center>
-          <div onClick={handleShow}>
+          <div onClick={handleShow} data-testid="dummy-password-card">
             <img
               src={"http://logo.clearbit.com/" + record.url}
               // className="card-img-top"
@@ -190,7 +190,7 @@ export default function PasswordCard(props) {
                 id="exampleInputURL1"
                 aria-describedby="URLHelp"
                 placeholder="Enter URL"
-                data-testid="url-input"
+                data-testid="edit-url-input"
                 value={url}
                 onChange={handleUrlChange}
               />
@@ -202,7 +202,7 @@ export default function PasswordCard(props) {
                 className="form-control"
                 id="exampleInputLogin1"
                 placeholder="Email/Username"
-                data-testid="login-input"
+                data-testid="edit-login-input"
                 value={login}
                 onChange={handleLoginChange}
               />
@@ -214,7 +214,7 @@ export default function PasswordCard(props) {
                 className="form-control"
                 id="exampleInputPassword1"
                 placeholder="Password"
-                data-testid="password-input"
+                data-testid="edit-password-input"
                 value={password}
                 onChange={handlePasswordChange}
               />
