@@ -1,0 +1,10 @@
+.avatar {
+  width: 40px;
+  border-radius: 100%;
+  border: 2px solid white;
+}
+
+.link-to-dashboard {
+  text-decoration: none !important;
+  font-weight: bolder;
+}
