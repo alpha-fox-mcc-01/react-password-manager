@@ -60,8 +60,15 @@ const destroy = () => {
     resolve({});
   });
 };
+
+const set = () => {
+  return new Promise((resolve, reject) => {
+    resolve()
+  })
+}
 const doc = id => ({
-  delete: destroy
+  delete: destroy,
+  set
 });
 
 const where = (fieldName, operator, value) => ({

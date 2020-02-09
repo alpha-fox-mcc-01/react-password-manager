@@ -44,14 +44,19 @@ test("Edit password should return password info with updated value", async () =>
     
   
 
-    await waitForElement(() => app.getAllByTestId("list-passwords"));
+    await waitForElement(() => app.getAllByTestId("list-passwords")[0]);
     fireEvent.click(app.queryByTestId("to-edit123"))
-    // fireEvent.change(app.queryAllByTestId("editUsername-123"), username)
-    // fireEvent.change(app.getAllByTestId("editPassword"), password)
-    // fireEvent.change(app.getAllByTestId("editUrl"), url)
-    
-    await waitForElement(() => app.getAllByTestId("edit-password"));
+    expect(app.queryAllByText(/URL/)[0]).toBeInTheDocument()
+    expect(app.queryAllByText(/Username/)[0]).toBeInTheDocument()
+    expect(app.queryAllByText(/Password/)[0]).toBeInTheDocument()
     app.debug()
-    fireEvent.click(app.getAllByTestId("submit-edit"))
-    expect(app.queryByText(/tinypixeL1_/)).toBeInTheDocument()
+    fireEvent.change(app.queryAllByTestId("editUsername")[0], username)
+    // fireEvent.change, username)
+    fireEvent.change(app.getAllByTestId("editPassword")[0], password)
+    fireEvent.change(app.getAllByTestId("editUrl")[0], url)
+    
+    fireEvent.click(app.getAllByTestId("submit-edit")[0])
+    await waitForElement(() => app.getAllByTestId("edit-password"));
+    // app.debug()
+    // expect(app.queryByText(/tinypixeL1_/)).toBeInTheDocument()
   });
