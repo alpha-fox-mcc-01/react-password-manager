@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { deletePassword } from '../../store/actions'
 import Swal from 'sweetalert2'
 import EditForm from './EditForm'
-
+import CustomToggle from './CustomToggle'
 export function ListAccordion(props) {
 
   const { data } = props
@@ -41,9 +41,9 @@ export function ListAccordion(props) {
           <>
            <Card>
             <Card.Header>
-              <Accordion.Toggle as={Button} variant="link" eventKey={password.id}>
+              <CustomToggle eventKey={password.id}>
                 {password.url}
-              </Accordion.Toggle>
+              </CustomToggle>
             </Card.Header>
             <Accordion.Collapse eventKey={password.id}>
               <Card.Body>  <span className="text-blue-500 block mb-2">
