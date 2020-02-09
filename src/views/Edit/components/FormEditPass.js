@@ -20,6 +20,7 @@ export default function FormEditPass() {
   const [isFetching, setIsFetching] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
 
   const { id } = useParams()
   const { haveLowercase, haveUppercase, haveNumber, haveSpchar, haveValidLength } = useSelector(
@@ -94,6 +95,35 @@ export default function FormEditPass() {
     setIsFetching(true)
     dispatch(reqDeletePassword(id))
     history.push('/dashboard')
+  }
+
+  function generatePassword() {
+    const make = () => {
+      const dictionary = `0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*(),.?":{}|<>`
+
+      let password = ''
+      for (let i = 0; i < 12; i++) {
+        password += dictionary.charAt(Math.floor(Math.random() * dictionary.length))
+      }
+      return password
+    }
+
+    let password = make()
+    return password
+  }
+  function handleToggleVisible() {
+    setIsVisible(!isVisible)
+  }
+  function handleGeneratePassword() {
+    const generatedPassword = generatePassword()
+
+    // const isStrong =
+    //   /([a-z])+/g.test(generatedPassword) &&
+    //   /([A-Z])+/g.test(generatedPassword) &&
+    //   /([0-9])+/g.test(generatedPassword) &&
+    //   /([!@#$%^&*(),.?":{}|<>])+/g.test(generatedPassword)
+
+    setPassword(generatedPassword)
   }
 
   usePasswordCheck(password)
@@ -184,25 +214,25 @@ export default function FormEditPass() {
             <span className='col-sm-2 col-form-span'></span>
             <div className='col-sm-10 d-flex mb-2'>
               <div className='input-group'>
-                <div className='input-group-prepend'>
-                  <span className='input-group-text'>Password</span>
-                </div>
-                <input data-testid='inputPassword' {...passwordBinding} type='password' className='form-control' />
-              </div>
-            </div>
-
-            <span className='col-sm-2 col-form-span'></span>
-            <div className='col-sm-10 d-flex'>
-              <div className='input-group'>
-                <div className='input-group-prepend'>
-                  <span className='input-group-text'>Password</span>
+                <div className='input-group-prepend fa-btns' onClick={handleToggleVisible}>
+                  <span className='input-group-text'>
+                    Password <i class={isVisible ? 'fas fa-eye-slash ml-3' : 'fas fa-eye ml-3'}></i>
+                  </span>
                 </div>
                 <input
-                  data-testid='inputPasswordConfirm'
-                  {...passwordConfirmBinding}
-                  type='password'
+                  data-testid='inputPassword'
+                  {...passwordBinding}
+                  type={isVisible ? 'text' : 'password'}
                   className='form-control'
                 />
+                <div
+                  onClick={() => {
+                    handleGeneratePassword()
+                  }}
+                  className='btn btn-outline-danger'
+                >
+                  Generate
+                </div>
               </div>
             </div>
 

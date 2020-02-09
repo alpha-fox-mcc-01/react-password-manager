@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 // hooks
@@ -17,14 +17,14 @@ import { showAddForm } from '../../../store/actions'
 export default function FormAddPass() {
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
 
   const [label, labelBinding] = useDataBinding('')
   const [url, urlBinding] = useDataBinding('')
-  const [password, passwordBinding] = useDataBinding('')
+  const [password, passwordBinding, passwordReset, setPassword] = useDataBinding('')
   const [field, fieldBinding] = useDataBinding('email')
   const [fieldvalue, fieldvalueBinding] = useDataBinding('')
   const [notes, notesBinding] = useDataBinding('')
-  const [passwordConfirm, passwordConfirmBinding] = useDataBinding('')
 
   const handleFormSubmit = (event) => {
     setIsLoading(true)
@@ -55,6 +55,36 @@ export default function FormAddPass() {
 
   function handleCloseForm() {
     dispatch(showAddForm(false))
+  }
+
+  function handleToggleVisible() {
+    setIsVisible(!isVisible)
+  }
+
+  function generatePassword() {
+    const make = () => {
+      const dictionary = `0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*(),.?":{}|<>`
+
+      let password = ''
+      for (let i = 0; i < 12; i++) {
+        password += dictionary.charAt(Math.floor(Math.random() * dictionary.length))
+      }
+      return password
+    }
+
+    let password = make()
+    return password
+  }
+
+  function handleGeneratePassword() {
+    const generatedPassword = generatePassword()
+    // const isStrong =
+    //   /([a-z])+/g.test(generatedPassword) &&
+    //   /([A-Z])+/g.test(generatedPassword) &&
+    //   /([0-9])+/g.test(generatedPassword) &&
+    //   /([!@#$%^&*(),.?":{}|<>])+/g.test(generatedPassword)
+
+    setPassword(generatedPassword)
   }
 
   return (
@@ -119,32 +149,26 @@ export default function FormAddPass() {
         <span className='col-sm-2 col-form-span'></span>
         <div className='col-sm-10 d-flex mb-2'>
           <div className='input-group'>
-            <div className='input-group-prepend'>
-              <span className='input-group-text'>Password</span>
+            <div className='input-group-prepend fa-btns' onClick={handleToggleVisible}>
+              <span className='input-group-text'>
+                Password <i class={isVisible ? 'fas fa-eye-slash ml-3' : 'fas fa-eye ml-3'}></i>
+              </span>
             </div>
             <input
               data-testid='inputPassword'
               disabled={isLoading}
               {...passwordBinding}
-              type='password'
+              type={isVisible ? 'text' : 'password'}
               className='form-control'
             />
-          </div>
-        </div>
-
-        <span className='col-sm-2 col-form-span'></span>
-        <div className='col-sm-10 d-flex'>
-          <div className='input-group'>
-            <div className='input-group-prepend'>
-              <span className='input-group-text'>Password</span>
-            </div>
-            <input
-              data-testid='inputPasswordConfirm'
-              disabled={isLoading}
-              {...passwordConfirmBinding}
-              type='password'
-              className='form-control'
-            />
+            <span
+              onClick={(event) => {
+                handleGeneratePassword()
+              }}
+              className='btn btn-outline-danger'
+            >
+              Generate
+            </span>
           </div>
         </div>
 
