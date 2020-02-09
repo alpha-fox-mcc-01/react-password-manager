@@ -1,0 +1,34 @@
+.profile-section {
+  background-color: #8d222b;
+  padding: 0 1em;
+}
+
+.nav-search {
+  background-color: #8d222b;
+  color: white;
+  border-color: darkred;
+}
+
+.search-result {
+  border-color: darkred;
+  z-index: 1;
+  top: 3rem;
+  position: absolute;
+  width: 100;
+}
+
+.result-row:hover {
+  cursor: pointer;
+  background-color: #dc3745;
+  color: white;
+}
+
+.nav-search::placeholder {
+  color: white;
+}
+
+.stickynav {
+  position: fixed;
+  top: 0;
+  z-index: 99;
+}

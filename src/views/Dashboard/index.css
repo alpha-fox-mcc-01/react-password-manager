@@ -1,0 +1,7 @@
+.fab {
+  font-family: 'Titillium Web', sans-serif;
+  position: fixed;
+  bottom: 3%;
+  right: 3%;
+  z-index: 99;
+}
