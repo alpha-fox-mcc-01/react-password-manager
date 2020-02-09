@@ -1,1 +1,1 @@
-i learn about Firebase auth and firestore in this repo
+i learn about react, redux, firestore, and jest in this repo

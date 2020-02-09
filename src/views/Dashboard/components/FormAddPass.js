@@ -18,23 +18,13 @@ export default function FormAddPass() {
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false)
 
-  const [label, labelBinding, labelReset] = useDataBinding('')
-  const [url, urlBinding, urlReset] = useDataBinding('')
-  const [password, passwordBinding, passwordReset] = useDataBinding('')
-  const [field, fieldBinding, fieldReset] = useDataBinding('email')
-  const [fieldvalue, fieldvalueBinding, fieldvalueReset] = useDataBinding('')
-  const [notes, notesBinding, notesReset] = useDataBinding('')
-  const [passwordConfirm, passwordConfirmBinding, passwordConfirmReset] = useDataBinding('')
-
-  function resetForm() {
-    labelReset()
-    urlReset()
-    passwordReset()
-    passwordConfirmReset()
-    fieldReset()
-    fieldvalueReset()
-    notesReset()
-  }
+  const [label, labelBinding] = useDataBinding('')
+  const [url, urlBinding] = useDataBinding('')
+  const [password, passwordBinding] = useDataBinding('')
+  const [field, fieldBinding] = useDataBinding('email')
+  const [fieldvalue, fieldvalueBinding] = useDataBinding('')
+  const [notes, notesBinding] = useDataBinding('')
+  const [passwordConfirm, passwordConfirmBinding] = useDataBinding('')
 
   const handleFormSubmit = (event) => {
     setIsLoading(true)
@@ -52,7 +42,6 @@ export default function FormAddPass() {
       owner: 'userid123',
       notes,
     }
-
     dispatch(postPassword(newPasswordPayload))
   }
 
@@ -70,9 +59,10 @@ export default function FormAddPass() {
 
   return (
     <>
-      <div className='d-flex'>
+      <div data-testid='addForm' className='d-flex'>
         <h4 className='mr-auto'>Add new Password</h4>
         <span
+          data-testid='closeFormBtn'
           className='fa-btns'
           onClick={() => {
             handleCloseForm()
@@ -87,7 +77,14 @@ export default function FormAddPass() {
           <strong>Label</strong>
         </label>
         <div className='col-sm-10 mb-4'>
-          <input required disabled={isLoading} {...labelBinding} type='text' className='form-control' />
+          <input
+            data-testid='inputLabel'
+            required
+            disabled={isLoading}
+            {...labelBinding}
+            type='text'
+            className='form-control'
+          />
           <small className='form-text text-muted'>password label</small>
         </div>
 
@@ -95,7 +92,7 @@ export default function FormAddPass() {
           <strong>URL</strong>
         </label>
         <div className='col-sm-10 mb-4'>
-          <input disabled={isLoading} {...urlBinding} type='text' className='form-control' />
+          <input data-testid='inputUrl' disabled={isLoading} {...urlBinding} type='text' className='form-control' />
           <small className='form-text text-muted'>yourwebsite.com</small>
         </div>
 
@@ -104,12 +101,18 @@ export default function FormAddPass() {
         </label>
         <div className='col-sm-10 mb-2'>
           <div className='d-flex'>
-            <select disabled={isLoading} {...fieldBinding} type='text' className='form-control col-4 col-sm-4'>
+            <select
+              data-testid='inputFieldOption'
+              disabled={isLoading}
+              {...fieldBinding}
+              type='text'
+              className='form-control col-4 col-sm-4'
+            >
               <option value='email'>Email Address</option>
               <option value='username'>Username</option>
               <option value='phone'>Phone Number</option>
             </select>
-            <input {...fieldvalueBinding} type='text' className='form-control ml-2' />
+            <input data-testid='inputFieldValue' {...fieldvalueBinding} type='text' className='form-control ml-2' />
           </div>
         </div>
 
@@ -119,7 +122,13 @@ export default function FormAddPass() {
             <div className='input-group-prepend'>
               <span className='input-group-text'>Password</span>
             </div>
-            <input disabled={isLoading} {...passwordBinding} type='password' className='form-control' />
+            <input
+              data-testid='inputPassword'
+              disabled={isLoading}
+              {...passwordBinding}
+              type='password'
+              className='form-control'
+            />
           </div>
         </div>
 
@@ -129,7 +138,13 @@ export default function FormAddPass() {
             <div className='input-group-prepend'>
               <span className='input-group-text'>Password</span>
             </div>
-            <input disabled={isLoading} {...passwordConfirmBinding} type='password' className='form-control' />
+            <input
+              data-testid='inputPasswordConfirm'
+              disabled={isLoading}
+              {...passwordConfirmBinding}
+              type='password'
+              className='form-control'
+            />
           </div>
         </div>
 
@@ -140,23 +155,23 @@ export default function FormAddPass() {
               <h5>Good password is atleast have:</h5>
               <div className={haveLowercase && 'text-success'}>
                 <span>lowercase character</span>
-                <i className={haveLowercase && 'fas fa-check ml-2'}></i>
+                <i data-testid='checkLowercase' className={haveLowercase && 'fas fa-check ml-2'}></i>
               </div>
               <div className={haveUppercase && 'text-success'}>
                 <span>uppercase character</span>
-                <i className={haveUppercase && 'fas fa-check ml-2'}></i>
+                <i data-testid='checkUppercase' className={haveUppercase && 'fas fa-check ml-2'}></i>
               </div>
               <div className={haveSpchar && 'text-success'}>
                 <span>special character</span>
-                <i className={haveSpchar && 'fas fa-check ml-2'}></i>
+                <i data-testid='checkSpChar' className={haveSpchar && 'fas fa-check ml-2'}></i>
               </div>
               <div className={haveNumber && 'text-success'}>
-                <span>numbers </span>
-                <i className={haveNumber && 'fas fa-check ml-2'}></i>
+                <span>number </span>
+                <i data-testid='checkNumber' className={haveNumber && 'fas fa-check ml-2'}></i>
               </div>
               <div className={haveValidLength && 'text-success'}>
                 <span>5 character long</span>
-                <i className={haveValidLength && 'fas fa-check ml-2'}></i>
+                <i data-testid='checkValidLength' className={haveValidLength && 'fas fa-check ml-2'}></i>
               </div>
             </div>
             <div className='d-flex'>
@@ -171,6 +186,7 @@ export default function FormAddPass() {
         </label>
         <div className='col-sm-10'>
           <textarea
+            data-testid='inputNotes'
             disabled={isLoading}
             {...notesBinding}
             name=''
@@ -178,7 +194,7 @@ export default function FormAddPass() {
             rows='3'
             className='form-control mb-4'
           ></textarea>
-          <button className='btn btn-danger badge-pill px-5' disabled={isLoading}>
+          <button data-testid='btnSubmitAddForm' className='btn btn-danger badge-pill px-5' disabled={isLoading}>
             {isLoading ? 'Adding...' : 'Add'}
           </button>
         </div>

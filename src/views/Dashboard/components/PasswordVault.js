@@ -26,7 +26,7 @@ export default function PasswordVault() {
       ) : (
         <div className=''>
           <h4>Click the lock icon to reveal your password</h4>
-          <div className='d-flex flex-wrap'>
+          <div data-testid='passwordList' className='d-flex flex-wrap'>
             {myPasswords.map((password) => (
               <PasswordCard password={password} key={password.id} />
             ))}

@@ -40,7 +40,6 @@ export default function FormEditPass() {
       .get()
       .then((querySnapshot) => {
         const data = querySnapshot.data()
-        console.log(querySnapshot)
         setLabel(data.name)
         setUrl(data.url)
         setNotes(data.notes)
@@ -151,7 +150,7 @@ export default function FormEditPass() {
               <strong>Label</strong>
             </label>
             <div className='col-sm-10 mb-4'>
-              <input {...labelBinding} type='text' className='form-control' />
+              <input data-testid='inputLabel' {...labelBinding} type='text' className='form-control' />
               <small className='form-text text-muted'>password label</small>
             </div>
 
@@ -159,7 +158,7 @@ export default function FormEditPass() {
               <strong>URL</strong>
             </label>
             <div className='col-sm-10 mb-4'>
-              <input {...urlBinding} type='text' className='form-control' />
+              <input data-testid='inputUrl' {...urlBinding} type='text' className='form-control' />
               <small className='form-text text-muted'>yourwebsite.com</small>
             </div>
 
@@ -168,12 +167,17 @@ export default function FormEditPass() {
             </label>
             <div className='col-sm-10 mb-2'>
               <div className='d-flex'>
-                <select {...fieldBinding} type='text' className='form-control col-4 col-sm-4'>
+                <select
+                  data-testid='inputFieldOption'
+                  {...fieldBinding}
+                  type='text'
+                  className='form-control col-4 col-sm-4'
+                >
                   <option value='email'>Email Address</option>
                   <option value='username'>Username</option>
                   <option value='phone'>Phone Number</option>
                 </select>
-                <input {...fieldvalueBinding} type='text' className='form-control ml-2' />
+                <input data-testid='inputFieldValue' {...fieldvalueBinding} type='text' className='form-control ml-2' />
               </div>
             </div>
 
@@ -183,7 +187,7 @@ export default function FormEditPass() {
                 <div className='input-group-prepend'>
                   <span className='input-group-text'>Password</span>
                 </div>
-                <input {...passwordBinding} type='password' className='form-control' />
+                <input data-testid='inputPassword' {...passwordBinding} type='password' className='form-control' />
               </div>
             </div>
 
@@ -193,7 +197,12 @@ export default function FormEditPass() {
                 <div className='input-group-prepend'>
                   <span className='input-group-text'>Password</span>
                 </div>
-                <input {...passwordConfirmBinding} type='password' className='form-control' />
+                <input
+                  data-testid='inputPasswordConfirm'
+                  {...passwordConfirmBinding}
+                  type='password'
+                  className='form-control'
+                />
               </div>
             </div>
 

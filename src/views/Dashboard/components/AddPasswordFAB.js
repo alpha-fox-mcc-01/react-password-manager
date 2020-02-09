@@ -10,6 +10,7 @@ export default function AddPasswordFAB() {
   }
   return (
     <button
+      data-testid='fab'
       className='btn btn-danger btn fab'
       onClick={() => {
         handleShowAddForm()

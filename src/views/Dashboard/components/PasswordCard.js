@@ -29,7 +29,7 @@ export default function PasswordCard(props) {
       </div>
       <div className='d-flex flex-column mr-auto'>
         <span className='h4'>
-          <Link to={`${id}`} className='text-dark'>
+          <Link data-testid={'link' + id} to={`${id}`} className='text-dark'>
             <strong>{name}</strong>
           </Link>
         </span>
@@ -39,10 +39,11 @@ export default function PasswordCard(props) {
       <div className='d-flex flex-column align-items-end'>
         <span className=''>{isRevealed ? `${fields.value} (${fields.type})` : fields.type}</span>
         <div className='d-flex'>
-          <div className='locked-password'>
+          <div data-testid='passwordStatus' className='locked-password'>
             {isRevealed ? fields.password : '******'}
             {isRevealed ? (
               <i
+                data-testid={'concealButton' + id}
                 onClick={(event) => {
                   conceal()
                 }}
@@ -50,6 +51,7 @@ export default function PasswordCard(props) {
               ></i>
             ) : (
               <i
+                data-testid={'revealButton' + id}
                 onClick={(event) => {
                   reveal()
                 }}
