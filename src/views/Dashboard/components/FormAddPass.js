@@ -41,6 +41,8 @@ export default function FormAddPass() {
       url,
       owner: 'userid123',
       notes,
+      createdAt: new Date(),
+      updatedAt: '',
     }
     dispatch(postPassword(newPasswordPayload))
   }

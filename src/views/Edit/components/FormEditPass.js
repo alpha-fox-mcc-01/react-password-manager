@@ -33,6 +33,8 @@ export default function FormEditPass() {
   const [field, fieldBinding, fieldReset, setField] = useDataBinding('email')
   const [fieldvalue, fieldvalueBinding, fieldvalueReset, setFieldvalue] = useDataBinding('')
   const [notes, notesBinding, notesReset, setNotes] = useDataBinding('')
+  const [createdAt, createdAtBinding, createdAtReset, setCreatedAt] = useDataBinding('')
+  const [updatedAt, updatedAtBinding, updatedAtReset, setUpdatedAt] = useDataBinding('')
   const [passwordConfirm, passwordConfirmBinding, passwordConfirmReset, setPasswordConfirm] = useDataBinding('')
 
   useEffect(() => {
@@ -49,7 +51,12 @@ export default function FormEditPass() {
         setPassword(data.fields.password)
         setPasswordConfirm(data.fields.password)
         setIsFetching(false)
+
+        setCreatedAt(new Date(data.createdAt.toDate()))
+
+        data.updatedAt ? setUpdatedAt(data.updatedAt.toDate()) : setUpdatedAt('never')
       })
+      .catch(console.log)
   }, [id, setLabel, setUrl, setNotes, setField, setFieldvalue, setPassword, setPasswordConfirm, setIsFetching])
 
   function resetForm() {
@@ -75,6 +82,7 @@ export default function FormEditPass() {
       url,
       owner: 'userid123',
       notes,
+      updatedAt: new Date(),
     }
 
     db.collection('passwords')
@@ -177,6 +185,20 @@ export default function FormEditPass() {
           <hr className='my-3' />
           <form className='row' onSubmit={handleFormSubmit}>
             <label className='col-sm-2 col-form-label'>
+              <strong>Created:</strong>
+            </label>
+            <div className='col-sm-10 mb-2'>
+              <input {...createdAtBinding} disabled type='text' className='form-control' />
+            </div>
+
+            <label className='col-sm-2 col-form-label'>
+              <strong>Updated:</strong>
+            </label>
+            <div className='col-sm-10 mb-4'>
+              <input {...updatedAtBinding} disabled type='text' className='form-control' />
+            </div>
+
+            <label className='col-sm-2 col-form-label'>
               <strong>Label</strong>
             </label>
             <div className='col-sm-10 mb-4'>
@@ -216,7 +238,7 @@ export default function FormEditPass() {
               <div className='input-group'>
                 <div className='input-group-prepend fa-btns' onClick={handleToggleVisible}>
                   <span className='input-group-text'>
-                    Password <i class={isVisible ? 'fas fa-eye-slash ml-3' : 'fas fa-eye ml-3'}></i>
+                    Password <i className={isVisible ? 'fas fa-eye-slash ml-3' : 'fas fa-eye ml-3'}></i>
                   </span>
                 </div>
                 <input
