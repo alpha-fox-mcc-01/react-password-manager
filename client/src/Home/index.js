@@ -1,10 +1,5 @@
-import React, { useState, useEffect } from "react";
-import PasswordContainer from "./components/PasswordContainer";
-import SearchPassword from "./components/SearchPassword";
-import ListPasswords from "./components/ListPasswords";
-import useFetcher from "../hooks/useFetcher";
-import NavBar from './NavBar'
-import { Nav } from "react-bootstrap";
+import React from "react";
+import NavBar from './NavBar';
 import HeaderBrand from './components/HeaderBrand'
 export function Home() {
 

@@ -7,7 +7,7 @@ export function CustomToggle({ children, eventKey }) {
     );
 
     return (
-      <button
+      <button data-testid="custom-button"
         type="button"
         style={{ backgroundColor: 'pink' }}
         onClick={decoratedOnClick}

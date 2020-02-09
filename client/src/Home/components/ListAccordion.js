@@ -60,7 +60,7 @@ export function ListAccordion(props) {
                 >
                   Delete
                 </button>
-                <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={() => toggleModal(password.url, password.id, password.password, password.username)} >
+                <button data-testid={"to-edit" + password.id} className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={() => toggleModal(password.url, password.id, password.password, password.username)} >
                   Edit {password.url}
                 </button>
                 <Modal show={show} onHide={handleClose}>
@@ -68,7 +68,7 @@ export function ListAccordion(props) {
                     <Modal.Title>Edit Password </Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <EditForm info={ editInfo } >
+                    <EditForm data-testid="edit-modal" info={ editInfo } >
                     </EditForm>
                   </Modal.Body>
                 </Modal></Card.Body>

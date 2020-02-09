@@ -2,7 +2,6 @@ import {Tabs, Tab} from 'react-bootstrap'
 import PasswordContainer from './components/PasswordContainer'
 import React, { useState, useEffect } from "react";
 import SearchPassword from "./components/SearchPassword";
-import ListPasswords from "./components/ListPasswords";
 import useFetcher from "../hooks/useFetcher";
 import './NavBar.css'
 import ListAccordion from "./components/ListAccordion"

@@ -86,9 +86,9 @@ export function EditForm(props) {
       >
         <div style={styles} className="">
           <div className="">
-            <form data-testid="input-form" onSubmit={handleFormSubmit}>
+            <form data-testid={"edit-form-" + password.id} onSubmit={handleFormSubmit}>
               <label>URL</label>
-              <input data-testid="inputUrl"
+              <input data-testid="editUrl"
                 value={url}
                 onChange={handleUrlChange}
                 className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded"
@@ -97,7 +97,7 @@ export function EditForm(props) {
                 placeholder={props.info.url}
               />
               <label>Username</label>
-              <input data-testid="inputUsername"
+              <input data-testid="editUsername"
                 value={username}
                 onChange={handleUsernameChange}
                 className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded"
@@ -106,7 +106,7 @@ export function EditForm(props) {
                 placeholder={props.info.username}
               />
               <label>Password</label>
-              <input data-testid="inputPassword"
+              <input data-testid="editPassword"
                 value={password}
                 onChange={handlePasswordChange}
                 className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded"
@@ -149,7 +149,7 @@ export function EditForm(props) {
                 </p>
                 )
               }
-            <button data-testid="submit-button" type="Submit">Save</button>
+            <button data-testid={"submit-edit"} type="Submit">Save</button>
             </form>
           </div>
         </div>

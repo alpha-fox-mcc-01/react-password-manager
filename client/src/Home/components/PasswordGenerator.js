@@ -12,9 +12,10 @@ export function PasswordGenerator() {
     return (
 
         <div>
-        <button onClick={ () => { callGenerator() }}>Generate your password</button>
-        <p>Result</p>
-        <h2>{newPass}</h2>
+        <button data-testid="generatePassword" onClick={ () => { callGenerator() }}>Generate your password</button>
+        {
+            newPass && <h2 data-testid="result-password"> Result: {newPass}</h2>
+        }
         <p>You can copy and paste the above password</p>
         </div>
     )

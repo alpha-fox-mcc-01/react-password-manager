@@ -25,4 +25,6 @@ test("Home should display Form Password, Searchbar, ListPassword", () => {
     )
     expect (app.queryByTestId("header")).toBeInTheDocument()
     expect (app.queryByTestId("tabs")).toBeInTheDocument()
+    expect(app.queryByText(/Insert New/)).toBeInTheDocument()
+   
 })  
