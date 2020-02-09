@@ -9,7 +9,7 @@ function generatePassword( length ) {
         let item2 = Math.floor(numeric.length * Math.random()*Math.random());
         let item3 = Math.floor(specialChars.length * Math.random()*Math.random());
         let prePass = ''
-        prePass = string.charAt(item1);
+        prePass = string.charAt(item1) 
         prePass = (password.length%2==0)?(prePass.toUpperCase()):(prePass);
         character += prePass;
         character += numeric.charAt(item2);
