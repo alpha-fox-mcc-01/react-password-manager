@@ -36,8 +36,7 @@ test("Delete password should return id", async () => {
     </Provider>
   );
 
-  app.debug()
-  await waitForElement(() => app.getAllByRole("listitem"));
+  await waitForElement(() => app.getAllByTestId("list-passwords"));
   fireEvent.click(app.queryByTestId("delete-button-123"))
 
   

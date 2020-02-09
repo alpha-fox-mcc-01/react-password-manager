@@ -10,7 +10,7 @@ export function SearchPassword(props) {
   return (
     <div data-testid="searchbar">
       <form className="w-full">
-        <input
+        <input data-testid="search-input"
           className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
           type="search"
           value={keyword}

@@ -23,8 +23,6 @@ test("Home should display Form Password, Searchbar, ListPassword", () => {
             </Router>
         </Provider>
     )
-    expect (app.queryByTestId("form-password")).toBeInTheDocument()
-    expect (app.queryByTestId("list-passwords")).toBeInTheDocument()
-    expect (app.queryByTestId("searchbar")).toBeInTheDocument()
-    
+    expect (app.queryByTestId("header")).toBeInTheDocument()
+    expect (app.queryByTestId("tabs")).toBeInTheDocument()
 })  

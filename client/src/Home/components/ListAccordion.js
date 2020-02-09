@@ -34,11 +34,12 @@ export function ListAccordion(props) {
 
 
   return (
+    <div data-testid="list-passwords">
     <Accordion>
         {data.length > 0 &&
         data.map(password => {
           return (
-          <>
+          <div role="listitem" key={password.id}>
            <Card key={password.id}>
             <Card.Header key={password.id}>
               <CustomToggle eventKey={password.id}>
@@ -73,9 +74,10 @@ export function ListAccordion(props) {
                 </Modal></Card.Body>
             </Accordion.Collapse>
           </Card>
-          </>
+          </div>
           )})}
     </Accordion>
+    </div>
   );
 }
 

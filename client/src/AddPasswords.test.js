@@ -38,7 +38,7 @@ test("Add Password works well", async () => {
 
   const password = {
     target: {
-        value: '1111'
+        value: 'tinypixeL1_'
     }
   }
   
@@ -48,8 +48,8 @@ test("Add Password works well", async () => {
 
   fireEvent.submit(app.getByTestId("input-form"))
 
-  await waitForElement(() => app.getAllByRole("listitem"))
-  expect(app.queryByTestId("list-passwords").children.length).toBe(4)
+  await waitForElement(() => app.getAllByTestId("list-passwords"));
+  expect(app.queryByTestId("list-passwords").children.length).toBe(1)
   expect(app.queryByTestId("list-passwords")).toHaveTextContent(username.target.value);
 
 });

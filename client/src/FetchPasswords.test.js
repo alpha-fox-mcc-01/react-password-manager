@@ -25,6 +25,6 @@ test("Fetch password  should display list of passwords", async () => {
     </Provider>
   );
 
-  await waitForElement(() => app.getAllByRole("listitem"));
-  expect(app.queryByTestId("list-passwords").children.length).toBe(3)
+  await waitForElement(() => app.getAllByTestId("list-passwords"));
+  expect(app.queryByTestId("list-passwords").children.length).toBe(1)
 });

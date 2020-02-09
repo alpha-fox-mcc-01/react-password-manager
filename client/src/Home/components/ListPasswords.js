@@ -30,11 +30,11 @@ export function ListPasswords(props) {
     setShow(true)
   }
   return (
-    <div data-testid="list-passwords" className="flex flex-wrap">
+    <div className="flex flex-wrap">
       {data.length > 0 &&
         data.map(password => {
           return (
-            <div role="listitem" key={password.id} className="sm:w-1/4 p-2">
+            <div key={password.id} className="sm:w-1/4 p-2">
               <div className="bg-white px-6 py-8 rounded-lg shadow-lg text-center">
                 <div className="mb-3">
                   <img className="w-auto mx-auto rounded-full" src="" alt="" />

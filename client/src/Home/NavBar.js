@@ -35,7 +35,8 @@ export function NavBar() {
         setList(result)
       } else {
         setList(data)
-      }
+      } 
+      
     }, [result, data])
 
     return (
