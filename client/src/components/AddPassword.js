@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { requestAddPassword } from '../store/actions';
-import { Modal, Button, Popover, OverlayTrigger } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import usePasswordStrength from '../hooks/usePassStr';
 
 const AddPassword = () => {
@@ -30,39 +30,73 @@ const AddPassword = () => {
       passwordStrength.number &&
       passwordStrength.specialCharacter
     ) {
-      return 'text-success';
+      return 'text-success lead mb-1';
     }
-    return 'text-danger';
+    return 'text-danger lead mb-1';
   };
 
-  // Popover Bootstrap React
-  const popover = (
-    <Popover id='popover-basic'>
-      <Popover.Title as='h3' className={textColor()}>
-        Password Requirement
-      </Popover.Title>
-      <Popover.Content>
-        <div className='container m-2'>
-          <div className='row'>
-            <div className='col-2'>
-              {fullfilled(passwordStrength.minimumLength)}
-              {fullfilled(passwordStrength.lowerCase)}
-              {fullfilled(passwordStrength.upperCase)}
-              {fullfilled(passwordStrength.number)}
-              {fullfilled(passwordStrength.specialCharacter)}
-            </div>
-            <div className='col-10'>
-              <p className='m-0'>Minimum Length 5</p>
-              <p className='m-0'>At least one Lowercase</p>
-              <p className='m-0'>At least one Uppercase</p>
-              <p className='m-0'>At least one number</p>
-              <p className='m-0'>At least one special character (!@#$%^&*)</p>
-            </div>
-          </div>
+  const passwordWidget = (
+    <div className='container m-2'>
+      <div className='row'>
+        <p className={textColor()}>Password Strength</p>
+      </div>
+      <div className='row mb-3'>
+        <div className='col-1'>
+          <p data-testid='minimum-length' className='m-0'>
+            {fullfilled(passwordStrength.minimumLength)}
+          </p>
+          <p data-testid='lower-case' className='m-0'>
+            {fullfilled(passwordStrength.lowerCase)}
+          </p>
+          <p data-testid='upper-case' className='m-0'>
+            {fullfilled(passwordStrength.upperCase)}
+          </p>
+          <p data-testid='number' className='m-0'>
+            {fullfilled(passwordStrength.number)}
+          </p>
+          <p data-testid='special-character' className='m-0'>
+            {fullfilled(passwordStrength.specialCharacter)}
+          </p>
         </div>
-      </Popover.Content>
-    </Popover>
+        <div className='col-11'>
+          <p className='m-0'>Minimum Length 5</p>
+          <p className='m-0'>At least one Lowercase</p>
+          <p className='m-0'>At least one Uppercase</p>
+          <p className='m-0'>At least one number</p>
+          <p className='m-0'>At least one special character (!@#$%^&*)</p>
+        </div>
+      </div>
+    </div>
   );
+
+  // Popover Bootstrap React
+  // const popover = (
+  //   <Popover id='popover-basic'>
+  //     <Popover.Title as='h3' className={textColor()}>
+  //       Password Requirement
+  //     </Popover.Title>
+  //     <Popover.Content>
+  //       <div className='container m-2'>
+  //         <div className='row'>
+  //           <div className='col-2'>
+  //             {fullfilled(passwordStrength.minimumLength)}
+  //             {fullfilled(passwordStrength.lowerCase)}
+  //             {fullfilled(passwordStrength.upperCase)}
+  //             {fullfilled(passwordStrength.number)}
+  //             {fullfilled(passwordStrength.specialCharacter)}
+  //           </div>
+  //           <div className='col-10'>
+  //             <p className='m-0'>Minimum Length 5</p>
+  //             <p className='m-0'>At least one Lowercase</p>
+  //             <p className='m-0'>At least one Uppercase</p>
+  //             <p className='m-0'>At least one number</p>
+  //             <p className='m-0'>At least one special character (!@#$%^&*)</p>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     </Popover.Content>
+  //   </Popover>
+  // );
 
   const addPassword = password => {
     dispatch(requestAddPassword(password));
@@ -87,62 +121,73 @@ const AddPassword = () => {
 
   return (
     <>
-      <Button variant='primary' onClick={handleShow}>
+      <Button
+        className='m-3'
+        data-testid='add-button'
+        variant='dark'
+        onClick={handleShow}
+      >
         Add New
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} data-testid='modal-addPassword'>
         <Modal.Header closeButton>
           <Modal.Title>Add Password</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form action='POST' onSubmit={onSubmit}>
+          <form
+            action='POST'
+            onSubmit={onSubmit}
+            data-testid='new-password-form'
+          >
             <div className='form-group'>
               <label htmlFor='url'>URL</label>
               <input
+                data-testid='url-input'
                 type='text'
                 className='form-control'
                 name='url'
                 id='url'
-                placeholder='http://oasisland.ivantjendra.xyz'
+                placeholder='google.com'
                 value={url}
                 onChange={onUrlChange}
               />
+              <small id='urllHelp' className='form-text text-muted'>
+                Example: google.com
+              </small>
             </div>
             <div className='form-group'>
               <label htmlFor='login'>Login</label>
               <input
+                data-testid='login-input'
                 type='text'
                 className='form-control'
                 name='login'
                 id='login'
-                placeholder='Gaben'
+                placeholder='gaben'
                 value={login}
                 onChange={onLoginChange}
               />
             </div>
             <div className='form-group'>
               <label htmlFor='password'>Password</label>
-              <OverlayTrigger
-                trigger='focus'
-                placement='right'
-                overlay={popover}
-              >
-                <input
-                  type='password'
-                  className='form-control'
-                  name='password'
-                  id='password'
-                  placeholder='*****'
-                  value={password}
-                  onChange={onPasswordChange}
-                />
-              </OverlayTrigger>
+              <input
+                data-testid='password-input'
+                type='password'
+                className='form-control'
+                name='password'
+                id='password'
+                placeholder='Ga8#n'
+                value={password}
+                onChange={onPasswordChange}
+              />
             </div>
+            {passwordWidget}
             <input
               type='submit'
               value='Add Password'
               className='btn btn-success'
+              data-testid='add-password-btn'
             />
           </form>
         </Modal.Body>

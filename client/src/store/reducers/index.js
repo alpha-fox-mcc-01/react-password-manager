@@ -4,6 +4,7 @@ import {
   DELETE_PASSWORD,
   FILTER_PASSWORDS,
   SET_QUERY,
+  EDIT_PASSWORD,
 } from '../actions';
 
 const initialState = {
@@ -33,6 +34,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         userQuery: payload,
+      };
+    case EDIT_PASSWORD:
+      const passwords = state.passwords.filter(
+        password => password.id !== payload.id
+      );
+      return {
+        ...state,
+        passwords: [...passwords, payload],
       };
     default:
       return state;

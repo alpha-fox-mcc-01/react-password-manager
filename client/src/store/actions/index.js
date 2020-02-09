@@ -5,6 +5,7 @@ export const ADD_PASSWORD = 'ADD_PASSWORD';
 export const DELETE_PASSWORD = 'DELETE_PASSWORD';
 export const FILTER_PASSWORDS = 'FILTER_PASSWORDS';
 export const SET_QUERY = 'SET_QUERY';
+export const EDIT_PASSWORD = 'EDIT_PASSWORD';
 
 export const addPasswords = passwords => {
   return {
@@ -16,6 +17,7 @@ export const addPasswords = passwords => {
 export const requestPasswords = () => {
   return dispatch => {
     db.collection('passwords')
+      .where('user', '==', 'IQxNY3v6mbZw08RK47sM')
       .get()
       .then(querySnapshot => {
         const passwords = [];
@@ -42,6 +44,7 @@ export const requestAddPassword = password => {
         url: password.url,
         login: password.login,
         password: password.password,
+        user: 'IQxNY3v6mbZw08RK47sM',
         createdAt: new Date(),
         updatedAt: new Date(),
       })
@@ -121,5 +124,40 @@ export const setQuery = query => {
   return {
     type: SET_QUERY,
     payload: query,
+  };
+};
+
+export const requestEditPassword = newPassword => {
+  return dispatch => {
+    db.collection('passwords')
+      .doc(newPassword.id)
+      .set(
+        {
+          url: newPassword.url,
+          login: newPassword.login,
+          password: newPassword.password,
+          updatedAt: new Date(),
+        },
+        { merge: true }
+      )
+      .then(() => {
+        db.collection('passwords')
+          .doc(newPassword.id)
+          .get()
+          .then(doc => {
+            const password = { id: doc.id, ...doc.data() };
+            dispatch(editPassword(password));
+          });
+      })
+      .catch(function(error) {
+        console.error('Error updating document: ', error);
+      });
+  };
+};
+
+export const editPassword = newPassword => {
+  return {
+    type: EDIT_PASSWORD,
+    payload: newPassword,
   };
 };

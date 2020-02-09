@@ -1,4 +1,4 @@
-const firebase = require('./firebase');
+import firebase from 'firebase';
 const db = firebase.firestore();
 
-module.exports = db;
+export default db;
