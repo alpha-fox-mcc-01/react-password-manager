@@ -6,6 +6,7 @@ export const ADD_PASSWORD = "ADD_PASSWORD";
 export const RECEIVE_SEARCH_PASSWORDS = "RECEIVE_SEARCH_PASSWORDS";
 export const DELETE_PASSWORD = "DELETE_PASSWORD";
 export const EDIT_PASSWORD = "EDIT_PASSWORD";
+export const SET_LOADING = "SET_LOADING";
 
 // define creators
 export const getPasswords = () => {
@@ -125,5 +126,11 @@ export const editPassword = (id, payload) => {
     type: EDIT_PASSWORD,
     id,
     payload
+  };
+};
+
+export const setLoading = () => {
+  return {
+    type: SET_LOADING
   };
 };

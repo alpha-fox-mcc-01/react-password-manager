@@ -1,45 +1,28 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getPasswords } from "../store/actions/";
+import { useDispatch, useSelector } from "react-redux";
+import { getPasswords, setLoading } from "../store/actions/";
+import Spinner from "react-spinkit";
 
 import PasswordCard from "./PasswordCard";
 export default function Passwords(props) {
+  let isLoading = useSelector(state => state.isLoading);
   let dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(setLoading());
     dispatch(getPasswords());
   }, [dispatch]);
-
   let { passwords } = props;
   return (
     <div data-testid="passwords-list" id="passwords-list" className="row">
-      {passwords.map(record => (
-        <div className="col-md-3" key={Math.random()}>
-          <PasswordCard record={record} />
-        </div>
-      ))}
-      {/* <Table data-testid="passwords-list" striped bordered hover>
-        <thead>
-          <tr>
-            <th>URL</th>
-            <th>Username/Email</th>
-            <th>Password</th>
-            <th>CreatedAt</th>
-            <th>UpdatedAt</th>
-          </tr>
-        </thead>
-        <tbody data-testid="password-table">
-          {passwords.map(record => (
-            <tr role="listitem" key={Math.random()}>
-              <td>{record.url}</td>
-              <td>{record.login}</td>
-              <td>{record.password}</td>
-              <td>{String(new Date(record.createdAt.seconds))}</td>
-              <td>{String(new Date(record.updatedAt.seconds))}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table> */}
+      {!isLoading &&
+        passwords.map(record => (
+          <div className="col-md-3" key={Math.random()}>
+            <PasswordCard record={record} />
+          </div>
+        ))}
+      {isLoading && <Spinner id="spin-loader" name="double-bounce" />}
+      {/* {isLoading && <h1>WOI</h1>} */}
     </div>
   );
 }

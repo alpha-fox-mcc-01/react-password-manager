@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Button, Modal } from "react-bootstrap";
 
-import { requestAddPassword } from "../store/actions/";
+import { requestAddPassword, setLoading } from "../store/actions/";
 
 export default function PasswordForm() {
   let dispatch = useDispatch();
@@ -54,7 +54,7 @@ export default function PasswordForm() {
 
   const handleFormSubmit = event => {
     event.preventDefault();
-    // console.log('masuk')
+    dispatch(setLoading());
     dispatch(
       requestAddPassword({
         url,

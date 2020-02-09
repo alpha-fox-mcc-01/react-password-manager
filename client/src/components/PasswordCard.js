@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Popover, OverlayTrigger, Modal, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { requestDeletePassword, requestEditPassword } from "../store/actions/";
+import {
+  requestDeletePassword,
+  requestEditPassword,
+  setLoading
+} from "../store/actions/";
 
 export default function PasswordCard(props) {
   let dispatch = useDispatch();
@@ -65,6 +69,7 @@ export default function PasswordCard(props) {
 
   const handleFormSubmit = event => {
     event.preventDefault();
+    dispatch(setLoading());
     dispatch(
       requestEditPassword(record.id, {
         url,
@@ -76,6 +81,7 @@ export default function PasswordCard(props) {
   };
 
   const handleDelete = _ => {
+    dispatch(setLoading());
     dispatch(requestDeletePassword(record.id));
     handleConfirmClose();
   };
