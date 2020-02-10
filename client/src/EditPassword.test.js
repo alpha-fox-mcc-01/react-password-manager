@@ -58,5 +58,5 @@ test("Edit password should return password info with updated value", async () =>
     fireEvent.click(app.getAllByTestId("submit-edit")[0])
     await waitForElement(() => app.getAllByTestId("edit-password"));
     // app.debug()
-    // expect(app.queryByText(/tinypixeL1_/)).toBeInTheDocument()
+    expect(app.queryByText(/tinypixeL1_/)).toBeInTheDocument()
   });

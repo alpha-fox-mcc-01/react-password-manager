@@ -38,6 +38,8 @@ test("Delete password should return id", async () => {
 
   await waitForElement(() => app.getAllByTestId("list-passwords"));
   fireEvent.click(app.queryByTestId("delete-button-123"))
+  await waitForElement(() => app.getAllByTestId("list-passwords"));
+  expect(app.queryByTestId("delete-button-123")).not.toBeInTheDocument()
 
   
   
