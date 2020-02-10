@@ -4,7 +4,11 @@ import { getPasswords, setLoading } from "../store/actions/";
 import Spinner from "react-spinkit";
 
 import PasswordCard from "./PasswordCard";
+
+import orderAsc from "../helpers/orderAscending";
+import orderDesc from "../helpers/orderDescending";
 export default function Passwords(props) {
+  let { ascending } = props;
   let isLoading = useSelector(state => state.isLoading);
   let dispatch = useDispatch();
 
@@ -13,6 +17,14 @@ export default function Passwords(props) {
     dispatch(getPasswords());
   }, [dispatch]);
   let { passwords } = props;
+
+  useEffect(() => {
+    if (ascending) {
+      passwords.sort(orderAsc);
+    } else {
+      passwords.sort(orderDesc);
+    }
+  }, [ascending, passwords]);
   return (
     <div data-testid="passwords-list" id="passwords-list" className="row">
       {!isLoading &&

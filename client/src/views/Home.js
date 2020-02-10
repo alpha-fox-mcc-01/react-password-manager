@@ -13,6 +13,8 @@ export default function Home() {
   let allPasswords = useSelector(state => state.passwords);
   const [passwords, setPasswords] = useState(allPasswords);
 
+  const [ascending, setAscending] = useState(null);
+
   const [keyword, setKeyword] = useState("");
   useEffect(() => {
     if (isSearching) {
@@ -29,6 +31,10 @@ export default function Home() {
     else setIsSearching(false);
     setKeyword(event.target.value);
     dispatch(searchPasswords(event.target.value));
+  };
+
+  const handleAscending = bool => {
+    setAscending(bool);
   };
 
   return (
@@ -98,8 +104,12 @@ export default function Home() {
         <div className="row" id="display-options">
           <div id="order-dropdown">
             <DropdownButton variant="transparent" title="Name">
-              <Dropdown.Item href="#/action-1">Ascending</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Descending</Dropdown.Item>
+              <Dropdown.Item onClick={() => handleAscending(true)}>
+                Ascending
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => handleAscending(false)}>
+                Descending
+              </Dropdown.Item>
             </DropdownButton>
           </div>
           <div id="records-dropdown">
@@ -108,11 +118,15 @@ export default function Home() {
               id="records-dropdown"
               title="All Records"
             >
-              <Dropdown.Item href="#/action-1">Last Updated</Dropdown.Item>
+              <Dropdown.Item href="/">Last Updated</Dropdown.Item>
             </DropdownButton>
           </div>
         </div>
-        <Passwords aria-label="passwords-list" passwords={passwords} />
+        <Passwords
+          aria-label="passwords-list"
+          passwords={passwords}
+          ascending={ascending}
+        />
       </div>
     </div>
   );

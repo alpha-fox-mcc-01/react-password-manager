@@ -184,7 +184,7 @@ export default function PasswordCard(props) {
           <Button variant="danger" onClick={handleDelete}>
             Confirm Delete
           </Button>
-          <Button variant="primary" onClick={handleConfirmClose}>
+          <Button variant="secondary" onClick={handleConfirmClose}>
             Cancel
           </Button>
         </Modal.Footer>
