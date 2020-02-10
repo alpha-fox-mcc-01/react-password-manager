@@ -205,3 +205,16 @@ code {
   margin-right: auto;
   margin-bottom: auto;
 }
+
+#generate-password-trigger {
+  /* color: rgb(255, 187, 0); */
+  color: #1338be;
+  cursor: pointer;
+  opacity: 0.6;
+  margin-left: 15.5rem;
+}
+
+#generate-password-trigger:hover {
+  opacity: 1;
+  text-decoration: underline;
+}

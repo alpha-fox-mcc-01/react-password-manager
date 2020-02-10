@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Button, Modal } from "react-bootstrap";
 
 import { requestAddPassword, setLoading } from "../store/actions/";
+import passwordGenerator from "../helpers/generator";
 
 export default function PasswordForm() {
   let dispatch = useDispatch();
@@ -64,6 +65,10 @@ export default function PasswordForm() {
     );
     handleClose();
   };
+
+  const handleGenerate = () => {
+    setPassword(passwordGenerator());
+  };
   return (
     <>
       <Button
@@ -97,6 +102,7 @@ export default function PasswordForm() {
                 aria-describedby="URLHelp"
                 placeholder="Enter URL"
                 data-testid="url-input"
+                value={url}
                 onChange={handleUrlChange}
               />
             </div>
@@ -108,17 +114,24 @@ export default function PasswordForm() {
                 id="exampleInputLogin1"
                 placeholder="Email/Username"
                 data-testid="login-input"
+                value={login}
                 onChange={handleLoginChange}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="exampleInputPassword1">Password</label>
+              <label htmlFor="exampleInputPassword1">
+                Password
+                <span id="generate-password-trigger" onClick={handleGenerate}>
+                  Generate Password
+                </span>
+              </label>
               <input
                 type="text"
                 className="form-control"
                 id="exampleInputPassword1"
                 placeholder="Password"
                 data-testid="password-input"
+                value={password}
                 onChange={handlePasswordChange}
               />
               <small id="passwordHelp" className="form-text text-muted">
