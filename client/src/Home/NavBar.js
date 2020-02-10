@@ -6,7 +6,9 @@ import useFetcher from "../hooks/useFetcher";
 import './NavBar.css'
 import ListAccordion from "./components/ListAccordion"
 import PasswordGenerator from "./components/PasswordGenerator"
+import { useSelector } from "react-redux"
 export function NavBar() {
+    const loading = useSelector(state => state.loading)
     const [key, setKey] = useState('home');
     const styles = {
         backgroundColor: "#A0A0A0"
@@ -37,6 +39,18 @@ export function NavBar() {
       } 
       
     }, [result, data])
+
+    const loadGif = {
+      margin: "0 auto",
+      width: "200px",
+      height: "200px"
+    };  
+
+    if (loading) { 
+      return (
+        <img style={loadGif} src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/35771931234507.564a1d2403b3a.gif" alt="loading"></img>
+      )
+    }
 
     return (
         <div className="w-1/2">
